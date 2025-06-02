@@ -1,0 +1,480 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2844270096415148449
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 896009728498641704}
+  m_Layer: 0
+  m_Name: Core Mechanics
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &896009728498641704
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2844270096415148449}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 4966261357683119208}
+  - {fileID: 4578248581174517544}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &1176418695973747496
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 896009728498641704}
+    m_Modifications:
+    - target: {fileID: 2444292522100794399, guid: 003ec7d73343ca84692d7f433b015163, type: 3}
+      propertyPath: m_Name
+      value: Timer
+      objectReference: {fileID: 0}
+    - target: {fileID: 4159957802505088608, guid: 003ec7d73343ca84692d7f433b015163, type: 3}
+      propertyPath: Max
+      value: 80
+      objectReference: {fileID: 0}
+    - target: {fileID: 4159957802505088608, guid: 003ec7d73343ca84692d7f433b015163, type: 3}
+      propertyPath: time
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 5202446564096910515, guid: 003ec7d73343ca84692d7f433b015163, type: 3}
+      propertyPath: m_AdditionalShaderChannelsFlag
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 6104856852046491456, guid: 003ec7d73343ca84692d7f433b015163, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 713.0264
+      objectReference: {fileID: 0}
+    - target: {fileID: 6104856852046491456, guid: 003ec7d73343ca84692d7f433b015163, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 534.31616
+      objectReference: {fileID: 0}
+    - target: {fileID: 6104856852046491456, guid: 003ec7d73343ca84692d7f433b015163, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 5.2730036
+      objectReference: {fileID: 0}
+    - target: {fileID: 6104856852046491456, guid: 003ec7d73343ca84692d7f433b015163, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6104856852046491456, guid: 003ec7d73343ca84692d7f433b015163, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6104856852046491456, guid: 003ec7d73343ca84692d7f433b015163, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6104856852046491456, guid: 003ec7d73343ca84692d7f433b015163, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6104856852046491456, guid: 003ec7d73343ca84692d7f433b015163, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6104856852046491456, guid: 003ec7d73343ca84692d7f433b015163, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6104856852046491456, guid: 003ec7d73343ca84692d7f433b015163, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 003ec7d73343ca84692d7f433b015163, type: 3}
+--- !u!4 &4966261357683119208 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6104856852046491456, guid: 003ec7d73343ca84692d7f433b015163, type: 3}
+  m_PrefabInstance: {fileID: 1176418695973747496}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &2756101161308419937
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 896009728498641704}
+    m_Modifications:
+    - target: {fileID: 405213134018517183, guid: 34f9ae3176d4c4750931370b3564eade, type: 3}
+      propertyPath: m_Name
+      value: Questions
+      objectReference: {fileID: 0}
+    - target: {fileID: 1852835098920200265, guid: 34f9ae3176d4c4750931370b3564eade, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.12549712
+      objectReference: {fileID: 0}
+    - target: {fileID: 1852835098920200265, guid: 34f9ae3176d4c4750931370b3564eade, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.00451586
+      objectReference: {fileID: 0}
+    - target: {fileID: 1852835098920200265, guid: 34f9ae3176d4c4750931370b3564eade, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.027434096
+      objectReference: {fileID: 0}
+    - target: {fileID: 1852835098920200265, guid: 34f9ae3176d4c4750931370b3564eade, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1852835098920200265, guid: 34f9ae3176d4c4750931370b3564eade, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1852835098920200265, guid: 34f9ae3176d4c4750931370b3564eade, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1852835098920200265, guid: 34f9ae3176d4c4750931370b3564eade, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1852835098920200265, guid: 34f9ae3176d4c4750931370b3564eade, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1852835098920200265, guid: 34f9ae3176d4c4750931370b3564eade, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1852835098920200265, guid: 34f9ae3176d4c4750931370b3564eade, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6033961624827703304, guid: 34f9ae3176d4c4750931370b3564eade, type: 3}
+      propertyPath: questions.Array.size
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 6033961624827703304, guid: 34f9ae3176d4c4750931370b3564eade, type: 3}
+      propertyPath: questions.Array.data[0].question
+      value: 'WHICH SORTING ALGORITHM IS CONSIDERED THE FASTEST IN PRACTICE FOR MOST
+        INPUTS? '
+      objectReference: {fileID: 0}
+    - target: {fileID: 6033961624827703304, guid: 34f9ae3176d4c4750931370b3564eade, type: 3}
+      propertyPath: questions.Array.data[1].question
+      value: 'WHAT DOES SQL STAND FOR? '
+      objectReference: {fileID: 0}
+    - target: {fileID: 6033961624827703304, guid: 34f9ae3176d4c4750931370b3564eade, type: 3}
+      propertyPath: questions.Array.data[2].question
+      value: 'WHICH KEYWORD IS USED TO DEFINE A CLASS IN JAVA? '
+      objectReference: {fileID: 0}
+    - target: {fileID: 6033961624827703304, guid: 34f9ae3176d4c4750931370b3564eade, type: 3}
+      propertyPath: questions.Array.data[3].question
+      value: 'WHICH DATA STRUCTURE USES FIFO (FIRST IN FIRST OUT)? '
+      objectReference: {fileID: 0}
+    - target: {fileID: 6033961624827703304, guid: 34f9ae3176d4c4750931370b3564eade, type: 3}
+      propertyPath: questions.Array.data[4].question
+      value: 'WHAT DOES GIT COMMIT DO? '
+      objectReference: {fileID: 0}
+    - target: {fileID: 6033961624827703304, guid: 34f9ae3176d4c4750931370b3564eade, type: 3}
+      propertyPath: questions.Array.data[5].question
+      value: 'WHAT IS THE TIME COMPLEXITY OF BINARY SEARCH ON A SORTED ARRAY? '
+      objectReference: {fileID: 0}
+    - target: {fileID: 6033961624827703304, guid: 34f9ae3176d4c4750931370b3564eade, type: 3}
+      propertyPath: questions.Array.data[6].question
+      value: 'WHAT DOES THE ''FINAL'' KEYWORD IN JAVA MEAN WHEN APPLIED TO A VARIABLE? '
+      objectReference: {fileID: 0}
+    - target: {fileID: 6033961624827703304, guid: 34f9ae3176d4c4750931370b3564eade, type: 3}
+      propertyPath: questions.Array.data[7].question
+      value: 'WHAT IS THE OUTPUT OF 3 + 2 * 2 IN MOST PROGRAMMING LANGUAGES? '
+      objectReference: {fileID: 0}
+    - target: {fileID: 6033961624827703304, guid: 34f9ae3176d4c4750931370b3564eade, type: 3}
+      propertyPath: questions.Array.data[8].question
+      value: 'WHICH OF THE FOLLOWING IS A NON-LINEAR DATA STRUCTURE? '
+      objectReference: {fileID: 0}
+    - target: {fileID: 6033961624827703304, guid: 34f9ae3176d4c4750931370b3564eade, type: 3}
+      propertyPath: questions.Array.data[9].question
+      value: 'IN C/C++, WHICH SYMBOL IS USED TO ACCESS MEMBERS OF A STRUCT POINTER? '
+      objectReference: {fileID: 0}
+    - target: {fileID: 6033961624827703304, guid: 34f9ae3176d4c4750931370b3564eade, type: 3}
+      propertyPath: questions.Array.data[10].question
+      value: 'WHICH OF THESE IS A LOOP STRUCTURE? '
+      objectReference: {fileID: 0}
+    - target: {fileID: 6033961624827703304, guid: 34f9ae3176d4c4750931370b3564eade, type: 3}
+      propertyPath: questions.Array.data[0].correctAnswerIndex
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6033961624827703304, guid: 34f9ae3176d4c4750931370b3564eade, type: 3}
+      propertyPath: questions.Array.data[1].answers.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6033961624827703304, guid: 34f9ae3176d4c4750931370b3564eade, type: 3}
+      propertyPath: questions.Array.data[1].correctAnswerIndex
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6033961624827703304, guid: 34f9ae3176d4c4750931370b3564eade, type: 3}
+      propertyPath: questions.Array.data[2].answers.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6033961624827703304, guid: 34f9ae3176d4c4750931370b3564eade, type: 3}
+      propertyPath: questions.Array.data[2].correctAnswerIndex
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6033961624827703304, guid: 34f9ae3176d4c4750931370b3564eade, type: 3}
+      propertyPath: questions.Array.data[3].answers.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6033961624827703304, guid: 34f9ae3176d4c4750931370b3564eade, type: 3}
+      propertyPath: questions.Array.data[3].correctAnswerIndex
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6033961624827703304, guid: 34f9ae3176d4c4750931370b3564eade, type: 3}
+      propertyPath: questions.Array.data[4].answers.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6033961624827703304, guid: 34f9ae3176d4c4750931370b3564eade, type: 3}
+      propertyPath: questions.Array.data[4].correctAnswerIndex
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6033961624827703304, guid: 34f9ae3176d4c4750931370b3564eade, type: 3}
+      propertyPath: questions.Array.data[5].answers.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6033961624827703304, guid: 34f9ae3176d4c4750931370b3564eade, type: 3}
+      propertyPath: questions.Array.data[5].correctAnswerIndex
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6033961624827703304, guid: 34f9ae3176d4c4750931370b3564eade, type: 3}
+      propertyPath: questions.Array.data[6].answers.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6033961624827703304, guid: 34f9ae3176d4c4750931370b3564eade, type: 3}
+      propertyPath: questions.Array.data[6].correctAnswerIndex
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6033961624827703304, guid: 34f9ae3176d4c4750931370b3564eade, type: 3}
+      propertyPath: questions.Array.data[7].answers.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6033961624827703304, guid: 34f9ae3176d4c4750931370b3564eade, type: 3}
+      propertyPath: questions.Array.data[7].correctAnswerIndex
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6033961624827703304, guid: 34f9ae3176d4c4750931370b3564eade, type: 3}
+      propertyPath: questions.Array.data[8].answers.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6033961624827703304, guid: 34f9ae3176d4c4750931370b3564eade, type: 3}
+      propertyPath: questions.Array.data[8].correctAnswerIndex
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6033961624827703304, guid: 34f9ae3176d4c4750931370b3564eade, type: 3}
+      propertyPath: questions.Array.data[9].answers.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6033961624827703304, guid: 34f9ae3176d4c4750931370b3564eade, type: 3}
+      propertyPath: questions.Array.data[9].correctAnswerIndex
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6033961624827703304, guid: 34f9ae3176d4c4750931370b3564eade, type: 3}
+      propertyPath: questions.Array.data[10].answers.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6033961624827703304, guid: 34f9ae3176d4c4750931370b3564eade, type: 3}
+      propertyPath: questions.Array.data[10].correctAnswerIndex
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6033961624827703304, guid: 34f9ae3176d4c4750931370b3564eade, type: 3}
+      propertyPath: 'questions.Array.data[0].answers.Array.data[0]'
+      value: 'BUBBLE SORT '
+      objectReference: {fileID: 0}
+    - target: {fileID: 6033961624827703304, guid: 34f9ae3176d4c4750931370b3564eade, type: 3}
+      propertyPath: 'questions.Array.data[0].answers.Array.data[1]'
+      value: 'INSERTION SORT '
+      objectReference: {fileID: 0}
+    - target: {fileID: 6033961624827703304, guid: 34f9ae3176d4c4750931370b3564eade, type: 3}
+      propertyPath: 'questions.Array.data[0].answers.Array.data[2]'
+      value: QUICK SORT
+      objectReference: {fileID: 0}
+    - target: {fileID: 6033961624827703304, guid: 34f9ae3176d4c4750931370b3564eade, type: 3}
+      propertyPath: 'questions.Array.data[0].answers.Array.data[3]'
+      value: 'SELECTION SORT '
+      objectReference: {fileID: 0}
+    - target: {fileID: 6033961624827703304, guid: 34f9ae3176d4c4750931370b3564eade, type: 3}
+      propertyPath: 'questions.Array.data[1].answers.Array.data[0]'
+      value: 'STRUCTURED QUESTION LANGUAGE '
+      objectReference: {fileID: 0}
+    - target: {fileID: 6033961624827703304, guid: 34f9ae3176d4c4750931370b3564eade, type: 3}
+      propertyPath: 'questions.Array.data[1].answers.Array.data[1]'
+      value: 'SIMPLE QUERY LOGIC '
+      objectReference: {fileID: 0}
+    - target: {fileID: 6033961624827703304, guid: 34f9ae3176d4c4750931370b3564eade, type: 3}
+      propertyPath: 'questions.Array.data[1].answers.Array.data[2]'
+      value: 'STRUCTURED QUERY LANGUAGE '
+      objectReference: {fileID: 0}
+    - target: {fileID: 6033961624827703304, guid: 34f9ae3176d4c4750931370b3564eade, type: 3}
+      propertyPath: 'questions.Array.data[1].answers.Array.data[3]'
+      value: 'SIMPLE QUESTION LANGUAGE '
+      objectReference: {fileID: 0}
+    - target: {fileID: 6033961624827703304, guid: 34f9ae3176d4c4750931370b3564eade, type: 3}
+      propertyPath: 'questions.Array.data[2].answers.Array.data[0]'
+      value: FUNC
+      objectReference: {fileID: 0}
+    - target: {fileID: 6033961624827703304, guid: 34f9ae3176d4c4750931370b3564eade, type: 3}
+      propertyPath: 'questions.Array.data[2].answers.Array.data[1]'
+      value: VAR
+      objectReference: {fileID: 0}
+    - target: {fileID: 6033961624827703304, guid: 34f9ae3176d4c4750931370b3564eade, type: 3}
+      propertyPath: 'questions.Array.data[2].answers.Array.data[2]'
+      value: DEF
+      objectReference: {fileID: 0}
+    - target: {fileID: 6033961624827703304, guid: 34f9ae3176d4c4750931370b3564eade, type: 3}
+      propertyPath: 'questions.Array.data[2].answers.Array.data[3]'
+      value: CLASS
+      objectReference: {fileID: 0}
+    - target: {fileID: 6033961624827703304, guid: 34f9ae3176d4c4750931370b3564eade, type: 3}
+      propertyPath: 'questions.Array.data[3].answers.Array.data[0]'
+      value: 'STACK  '
+      objectReference: {fileID: 0}
+    - target: {fileID: 6033961624827703304, guid: 34f9ae3176d4c4750931370b3564eade, type: 3}
+      propertyPath: 'questions.Array.data[3].answers.Array.data[1]'
+      value: QUEUE
+      objectReference: {fileID: 0}
+    - target: {fileID: 6033961624827703304, guid: 34f9ae3176d4c4750931370b3564eade, type: 3}
+      propertyPath: 'questions.Array.data[3].answers.Array.data[2]'
+      value: TREE
+      objectReference: {fileID: 0}
+    - target: {fileID: 6033961624827703304, guid: 34f9ae3176d4c4750931370b3564eade, type: 3}
+      propertyPath: 'questions.Array.data[3].answers.Array.data[3]'
+      value: GRAPH
+      objectReference: {fileID: 0}
+    - target: {fileID: 6033961624827703304, guid: 34f9ae3176d4c4750931370b3564eade, type: 3}
+      propertyPath: 'questions.Array.data[4].answers.Array.data[0]'
+      value: 'DELETES FILES '
+      objectReference: {fileID: 0}
+    - target: {fileID: 6033961624827703304, guid: 34f9ae3176d4c4750931370b3564eade, type: 3}
+      propertyPath: 'questions.Array.data[4].answers.Array.data[1]'
+      value: 'STAGES CHANGES '
+      objectReference: {fileID: 0}
+    - target: {fileID: 6033961624827703304, guid: 34f9ae3176d4c4750931370b3564eade, type: 3}
+      propertyPath: 'questions.Array.data[4].answers.Array.data[2]'
+      value: 'SAVES STAGED CHANGES '
+      objectReference: {fileID: 0}
+    - target: {fileID: 6033961624827703304, guid: 34f9ae3176d4c4750931370b3564eade, type: 3}
+      propertyPath: 'questions.Array.data[4].answers.Array.data[3]'
+      value: 'PUSHES CODE TO REMOTE '
+      objectReference: {fileID: 0}
+    - target: {fileID: 6033961624827703304, guid: 34f9ae3176d4c4750931370b3564eade, type: 3}
+      propertyPath: 'questions.Array.data[5].answers.Array.data[0]'
+      value: 'O(N) '
+      objectReference: {fileID: 0}
+    - target: {fileID: 6033961624827703304, guid: 34f9ae3176d4c4750931370b3564eade, type: 3}
+      propertyPath: 'questions.Array.data[5].answers.Array.data[1]'
+      value: 'O(N LOG N) '
+      objectReference: {fileID: 0}
+    - target: {fileID: 6033961624827703304, guid: 34f9ae3176d4c4750931370b3564eade, type: 3}
+      propertyPath: 'questions.Array.data[5].answers.Array.data[2]'
+      value: 'O(LOG N) '
+      objectReference: {fileID: 0}
+    - target: {fileID: 6033961624827703304, guid: 34f9ae3176d4c4750931370b3564eade, type: 3}
+      propertyPath: 'questions.Array.data[5].answers.Array.data[3]'
+      value: 'O(1) '
+      objectReference: {fileID: 0}
+    - target: {fileID: 6033961624827703304, guid: 34f9ae3176d4c4750931370b3564eade, type: 3}
+      propertyPath: 'questions.Array.data[6].answers.Array.data[0]'
+      value: 'CAN BE MODIFIED '
+      objectReference: {fileID: 0}
+    - target: {fileID: 6033961624827703304, guid: 34f9ae3176d4c4750931370b3564eade, type: 3}
+      propertyPath: 'questions.Array.data[6].answers.Array.data[1]'
+      value: 'IS STATIC '
+      objectReference: {fileID: 0}
+    - target: {fileID: 6033961624827703304, guid: 34f9ae3176d4c4750931370b3564eade, type: 3}
+      propertyPath: 'questions.Array.data[6].answers.Array.data[2]'
+      value: 'IS CONSTANT '
+      objectReference: {fileID: 0}
+    - target: {fileID: 6033961624827703304, guid: 34f9ae3176d4c4750931370b3564eade, type: 3}
+      propertyPath: 'questions.Array.data[6].answers.Array.data[3]'
+      value: 'IS A CLASS '
+      objectReference: {fileID: 0}
+    - target: {fileID: 6033961624827703304, guid: 34f9ae3176d4c4750931370b3564eade, type: 3}
+      propertyPath: 'questions.Array.data[7].answers.Array.data[0]'
+      value: '10 '
+      objectReference: {fileID: 0}
+    - target: {fileID: 6033961624827703304, guid: 34f9ae3176d4c4750931370b3564eade, type: 3}
+      propertyPath: 'questions.Array.data[7].answers.Array.data[1]'
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 6033961624827703304, guid: 34f9ae3176d4c4750931370b3564eade, type: 3}
+      propertyPath: 'questions.Array.data[7].answers.Array.data[2]'
+      value: '8 '
+      objectReference: {fileID: 0}
+    - target: {fileID: 6033961624827703304, guid: 34f9ae3176d4c4750931370b3564eade, type: 3}
+      propertyPath: 'questions.Array.data[7].answers.Array.data[3]'
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 6033961624827703304, guid: 34f9ae3176d4c4750931370b3564eade, type: 3}
+      propertyPath: 'questions.Array.data[8].answers.Array.data[0]'
+      value: 'ARRAY '
+      objectReference: {fileID: 0}
+    - target: {fileID: 6033961624827703304, guid: 34f9ae3176d4c4750931370b3564eade, type: 3}
+      propertyPath: 'questions.Array.data[8].answers.Array.data[1]'
+      value: STACK
+      objectReference: {fileID: 0}
+    - target: {fileID: 6033961624827703304, guid: 34f9ae3176d4c4750931370b3564eade, type: 3}
+      propertyPath: 'questions.Array.data[8].answers.Array.data[2]'
+      value: QUEUE
+      objectReference: {fileID: 0}
+    - target: {fileID: 6033961624827703304, guid: 34f9ae3176d4c4750931370b3564eade, type: 3}
+      propertyPath: 'questions.Array.data[8].answers.Array.data[3]'
+      value: 'TREE '
+      objectReference: {fileID: 0}
+    - target: {fileID: 6033961624827703304, guid: 34f9ae3176d4c4750931370b3564eade, type: 3}
+      propertyPath: 'questions.Array.data[9].answers.Array.data[0]'
+      value: '. '
+      objectReference: {fileID: 0}
+    - target: {fileID: 6033961624827703304, guid: 34f9ae3176d4c4750931370b3564eade, type: 3}
+      propertyPath: 'questions.Array.data[9].answers.Array.data[1]'
+      value: '-> '
+      objectReference: {fileID: 0}
+    - target: {fileID: 6033961624827703304, guid: 34f9ae3176d4c4750931370b3564eade, type: 3}
+      propertyPath: 'questions.Array.data[9].answers.Array.data[2]'
+      value: '::  '
+      objectReference: {fileID: 0}
+    - target: {fileID: 6033961624827703304, guid: 34f9ae3176d4c4750931370b3564eade, type: 3}
+      propertyPath: 'questions.Array.data[9].answers.Array.data[3]'
+      value: ;
+      objectReference: {fileID: 0}
+    - target: {fileID: 6033961624827703304, guid: 34f9ae3176d4c4750931370b3564eade, type: 3}
+      propertyPath: 'questions.Array.data[10].answers.Array.data[0]'
+      value: ELSE
+      objectReference: {fileID: 0}
+    - target: {fileID: 6033961624827703304, guid: 34f9ae3176d4c4750931370b3564eade, type: 3}
+      propertyPath: 'questions.Array.data[10].answers.Array.data[1]'
+      value: FOR
+      objectReference: {fileID: 0}
+    - target: {fileID: 6033961624827703304, guid: 34f9ae3176d4c4750931370b3564eade, type: 3}
+      propertyPath: 'questions.Array.data[10].answers.Array.data[2]'
+      value: PRINT
+      objectReference: {fileID: 0}
+    - target: {fileID: 6033961624827703304, guid: 34f9ae3176d4c4750931370b3564eade, type: 3}
+      propertyPath: 'questions.Array.data[10].answers.Array.data[3]'
+      value: BREAK
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 34f9ae3176d4c4750931370b3564eade, type: 3}
+--- !u!4 &4578248581174517544 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1852835098920200265, guid: 34f9ae3176d4c4750931370b3564eade, type: 3}
+  m_PrefabInstance: {fileID: 2756101161308419937}
+  m_PrefabAsset: {fileID: 0}

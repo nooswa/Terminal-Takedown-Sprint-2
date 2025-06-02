@@ -1,0 +1,546 @@
+fileFormatVersion: 2
+guid: 13a6f192d0d8d7a4bae2ad2821e25664
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -3668529685879410164
+    second: CyberSecRun (2)_0
+  - first:
+      213: 1470674033525739161
+    second: CyberSecRun (2)_1
+  - first:
+      213: -8528919299491383582
+    second: CyberSecRun (2)_2
+  - first:
+      213: 3636846354957136570
+    second: CyberSecRun (2)_3
+  - first:
+      213: -14302923582332413
+    second: CyberSecRun (2)_4
+  - first:
+      213: -3244275120161226077
+    second: CyberSecRun (2)_5
+  - first:
+      213: 1896485270911092724
+    second: CyberSecRun (2)_6
+  - first:
+      213: 6014131879299493965
+    second: CyberSecRun (2)_7
+  - first:
+      213: -4587512220167483003
+    second: CyberSecRun (2)_8
+  - first:
+      213: -7340438993199575926
+    second: CyberSecRun (2)_9
+  - first:
+      213: -1292619884183662519
+    second: CyberSecRun (2)_10
+  - first:
+      213: 2997803128030338123
+    second: CyberSecRun (2)_11
+  - first:
+      213: 266060159800640762
+    second: CyberSecRun (2)_12
+  - first:
+      213: -7557997860510973318
+    second: CyberSecRun (2)_13
+  - first:
+      213: 498922119530229837
+    second: CyberSecRun (2)_14
+  - first:
+      213: 1514501520138762460
+    second: CyberSecRun (2)_15
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: CyberSecRun (2)_0
+      rect:
+        serializedVersion: 2
+        x: 6
+        y: 76
+        width: 16
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c02be29ffa3c61dc0800000000000000
+      internalID: -3668529685879410164
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CyberSecRun (2)_1
+      rect:
+        serializedVersion: 2
+        x: 29
+        y: 75
+        width: 17
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 99e41b4dd32e86410800000000000000
+      internalID: 1470674033525739161
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CyberSecRun (2)_2
+      rect:
+        serializedVersion: 2
+        x: 54
+        y: 76
+        width: 16
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2e6b7d3d51133a980800000000000000
+      internalID: -8528919299491383582
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CyberSecRun (2)_3
+      rect:
+        serializedVersion: 2
+        x: 77
+        y: 75
+        width: 17
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ab2f4e1bd7ca87230800000000000000
+      internalID: 3636846354957136570
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CyberSecRun (2)_4
+      rect:
+        serializedVersion: 2
+        x: 5
+        y: 52
+        width: 16
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 30220a8119f2dcff0800000000000000
+      internalID: -14302923582332413
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CyberSecRun (2)_5
+      rect:
+        serializedVersion: 2
+        x: 29
+        y: 51
+        width: 16
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3a2072597f40af2d0800000000000000
+      internalID: -3244275120161226077
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CyberSecRun (2)_6
+      rect:
+        serializedVersion: 2
+        x: 53
+        y: 52
+        width: 16
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4f78a6e4e4ba15a10800000000000000
+      internalID: 1896485270911092724
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CyberSecRun (2)_7
+      rect:
+        serializedVersion: 2
+        x: 77
+        y: 51
+        width: 16
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d40bff9741d767350800000000000000
+      internalID: 6014131879299493965
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CyberSecRun (2)_8
+      rect:
+        serializedVersion: 2
+        x: 3
+        y: 28
+        width: 16
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 581572201f1e550c0800000000000000
+      internalID: -4587512220167483003
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CyberSecRun (2)_9
+      rect:
+        serializedVersion: 2
+        x: 27
+        y: 27
+        width: 16
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a8cc9e280a5812a90800000000000000
+      internalID: -7340438993199575926
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CyberSecRun (2)_10
+      rect:
+        serializedVersion: 2
+        x: 51
+        y: 28
+        width: 16
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 94050ad5011bf0ee0800000000000000
+      internalID: -1292619884183662519
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CyberSecRun (2)_11
+      rect:
+        serializedVersion: 2
+        x: 75
+        y: 27
+        width: 16
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b4c9dc8df065a9920800000000000000
+      internalID: 2997803128030338123
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CyberSecRun (2)_12
+      rect:
+        serializedVersion: 2
+        x: 3
+        y: 4
+        width: 15
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: af40dc14e4c31b300800000000000000
+      internalID: 266060159800640762
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CyberSecRun (2)_13
+      rect:
+        serializedVersion: 2
+        x: 27
+        y: 3
+        width: 16
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a72c4176df89c1790800000000000000
+      internalID: -7557997860510973318
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CyberSecRun (2)_14
+      rect:
+        serializedVersion: 2
+        x: 50
+        y: 4
+        width: 16
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d403f2936078ce600800000000000000
+      internalID: 498922119530229837
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CyberSecRun (2)_15
+      rect:
+        serializedVersion: 2
+        x: 75
+        y: 3
+        width: 16
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cd8f8afbb17940510800000000000000
+      internalID: 1514501520138762460
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: f4fbe3725d0cab8449a5fb0e0ab55fd5
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      CyberSecRun (2)_0: -3668529685879410164
+      CyberSecRun (2)_1: 1470674033525739161
+      CyberSecRun (2)_10: -1292619884183662519
+      CyberSecRun (2)_11: 2997803128030338123
+      CyberSecRun (2)_12: 266060159800640762
+      CyberSecRun (2)_13: -7557997860510973318
+      CyberSecRun (2)_14: 498922119530229837
+      CyberSecRun (2)_15: 1514501520138762460
+      CyberSecRun (2)_2: -8528919299491383582
+      CyberSecRun (2)_3: 3636846354957136570
+      CyberSecRun (2)_4: -14302923582332413
+      CyberSecRun (2)_5: -3244275120161226077
+      CyberSecRun (2)_6: 1896485270911092724
+      CyberSecRun (2)_7: 6014131879299493965
+      CyberSecRun (2)_8: -4587512220167483003
+      CyberSecRun (2)_9: -7340438993199575926
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
