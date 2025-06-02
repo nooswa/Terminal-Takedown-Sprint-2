@@ -31,7 +31,7 @@ No more late nights suffering through endless LeetCode grinds. Terminal Takedown
 
 - Unity version: `6000.0.43f1` (required for compatibility)
 - Aspect ratio: `16:9` (gameplay and UI optimized for this format)
-- Internet connection: Required for the core game mechanic of fetching coding questions.
+- Internet connection: Required for the core game mechanic of fetching practice questions.
 
 ## How to Play (Development Mode)
 
