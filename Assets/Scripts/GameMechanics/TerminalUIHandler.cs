@@ -93,8 +93,18 @@ public class TerminalUIHandler : MonoBehaviour
                 }
             
             }
-            
+
             // Destroy the robot GameObject after the explosion
+            LootBag loot = robot.GetComponent<LootBag>();
+            if (loot != null)
+            {
+                loot.InstantiateLoot(robot.transform.position); //calls instantiateloot to spawn loot if u get loot!
+            }
+            else
+            {
+                Debug.LogWarning("No Loot Dropped!"); //debug for if no loot dropped
+            }
+
             Destroy(robot);
 
         }

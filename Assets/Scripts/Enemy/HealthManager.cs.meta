@@ -1,2 +1,14 @@
 fileFormatVersion: 2
 guid: 614b018ff59f4734aa372d045ffae9bb
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - healthBar: {instanceID: 0}
+  - playAgain: {instanceID: 0}
+  - reviveIconUI: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

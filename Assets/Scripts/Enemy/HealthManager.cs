@@ -11,14 +11,56 @@ public class HealthManager : MonoBehaviour
     private bool isDead = false;
     private DamageFlash _damageFlash;
 
+    private bool hasRevive = false; //revive flag (tracks revive have)
+    public GameObject reviveIconUI;
+
+    public bool TryAddRevive() //attempt to pick up revive method
+    {
+        if (hasRevive)
+        {
+            return false; //already have revive
+        }
+        else
+        {
+            hasRevive = true;
+            UpdateReviveUI();
+            Debug.Log("Obtained revive");
+            return true;
+        }
+    }
+
+    public bool HasRevive() //checks for revive own
+    {
+        return hasRevive;
+    }
+
+    public void UseRevive() //revive usage on death
+    {
+        if (!hasRevive) return;
+
+        //stuff that happens upon revive trigger!
+        hasRevive = false;
+        isDead = false;
+        healthAmount = 100f;
+        healthBar.fillAmount = 1f;
+        UpdateReviveUI();
+        Debug.Log("Player revived with full health!");
+    }
+
     void Start()
     {
+        if(reviveIconUI == null)
+        {
+            reviveIconUI = GameObject.Find("ReviveIcon"); //searches for reviveicon
+        }
+
         if (playAgain != null)
         {
             playAgain.SetActive(false); // hide Play Again UI at start
         }
 
         _damageFlash = GetComponent<DamageFlash>();
+        UpdateReviveUI();
     }
 
     void Update()
@@ -26,8 +68,15 @@ public class HealthManager : MonoBehaviour
         // Death check
         if (healthAmount <= 0 && !isDead)
         {
-            isDead = true;
-            HandleDeath();
+            if (hasRevive)
+            {
+                UseRevive();
+            }
+            else
+            {
+                isDead = true;
+                HandleDeath();
+            }
         }
 
         // Manual testing inputs
@@ -127,5 +176,12 @@ public class HealthManager : MonoBehaviour
         SceneManager.LoadScene(0); // loads menu scene index
     }
 
+    private void UpdateReviveUI()
+    {
+        if (reviveIconUI != null)
+        {
+            reviveIconUI.SetActive(hasRevive);
+        }
+    }
 
 }
