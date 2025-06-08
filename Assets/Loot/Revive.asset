@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lootSprite: {fileID: -8125774475627718875, guid: 6153756137a10ef49b68728b2d4e1426, type: 3}
   lootName: Revive
-  dropChance: 2
+  dropChance: 100
   lootType: 1
