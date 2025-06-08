@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 7537899451904967187}
   - component: {fileID: 2814219337766603455}
   - component: {fileID: 8992953185674518038}
+  - component: {fileID: 2655171080835363007}
   m_Layer: 0
   m_Name: 'ROBERTeroDenero '
   m_TagString: Untagged
@@ -244,6 +245,22 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &2655171080835363007
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3203553818462986100}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59cc7a971f87b2140aa556aeacacacf9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  droppedItemPrefab: {fileID: 1962207883636745492, guid: bdb5e87e03fd5074bb9e62dbf2a45a00, type: 3}
+  lootList:
+  - {fileID: 11400000, guid: a76d0f32c1f2a7c41b440e55fea3476f, type: 2}
+  - {fileID: 11400000, guid: 90e66ef82873baa439d2ed6925d74b8b, type: 2}
 --- !u!1 &4816111129791899187
 GameObject:
   m_ObjectHideFlags: 0
