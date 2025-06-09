@@ -1484,6 +1484,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1673650494}
+        m_TargetAssemblyTypeName: ClassSelection, Assembly-CSharp
+        m_MethodName: PlayClass2
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1060379607
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1692,6 +1704,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1673650494}
+        m_TargetAssemblyTypeName: ClassSelection, Assembly-CSharp
+        m_MethodName: PlayClass1
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1267883029
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1877,6 +1901,10 @@ MonoBehaviour:
   backClickClip: {fileID: 8300000, guid: f1a2cca288e7d474fa4641d02e1f9794, type: 3}
   softDevClickClip: {fileID: 8300000, guid: 5f75098fbb83cc444ac980c8ec428cb4, type: 3}
   cyberSecClickClip: {fileID: 8300000, guid: 5f75098fbb83cc444ac980c8ec428cb4, type: 3}
+  softDevBackClickClip: {fileID: 0}
+  softDevStartClickClip: {fileID: 0}
+  cyberSecBackClickClip: {fileID: 0}
+  cyberSecStartClickClip: {fileID: 0}
 --- !u!1 &1495434719
 GameObject:
   m_ObjectHideFlags: 0
@@ -1952,6 +1980,50 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1495434719}
   m_CullTransparentMesh: 1
+--- !u!1 &1673650493
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1673650495}
+  - component: {fileID: 1673650494}
+  m_Layer: 0
+  m_Name: ClassSelectionManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1673650494
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1673650493}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a79ff8e9ad153145a5361a645d286f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &1673650495
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1673650493}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1862973454
 GameObject:
   m_ObjectHideFlags: 0
@@ -2554,7 +2626,6 @@ GameObject:
   - component: {fileID: 1983417599}
   - component: {fileID: 1983417598}
   - component: {fileID: 1983417602}
-  - component: {fileID: 1983417601}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -2636,18 +2707,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1983417601
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1983417597}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8a79ff8e9ad153145a5361a645d286f0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1983417602
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2700,3 +2759,4 @@ SceneRoots:
   - {fileID: 29761975}
   - {fileID: 47159214}
   - {fileID: 1271828231}
+  - {fileID: 1673650495}

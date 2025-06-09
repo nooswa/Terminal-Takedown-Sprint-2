@@ -1064,6 +1064,69 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 312868973}
   m_CullTransparentMesh: 1
+--- !u!1 &315887989
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 315887991}
+  - component: {fileID: 315887990}
+  m_Layer: 0
+  m_Name: ChecklistManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &315887990
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 315887989}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61d86f364e8db492b8a7ccbc02beaf79, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  topicRows:
+  - {fileID: 1500670660}
+  - {fileID: 1819001910}
+  - {fileID: 487962595}
+  - {fileID: 254249198}
+  - {fileID: 584162197}
+  - {fileID: 663161718}
+  - {fileID: 388717561}
+  - {fileID: 2047026742}
+  - {fileID: 1134717391}
+  - {fileID: 239887449}
+  - {fileID: 2109387369}
+  - {fileID: 1513374166}
+  - {fileID: 1274867999}
+  - {fileID: 1578774421}
+  - {fileID: 1206167770}
+  - {fileID: 377899116}
+  - {fileID: 1948421741}
+  - {fileID: 1116824341}
+--- !u!4 &315887991
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 315887989}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &347930697
 GameObject:
   m_ObjectHideFlags: 0
@@ -6863,6 +6926,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 315887990}
+        m_TargetAssemblyTypeName: Checklist, Assembly-CSharp
+        m_MethodName: OnStartGamePressed
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1870219697
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7941,3 +8016,4 @@ SceneRoots:
   - {fileID: 1057851156}
   - {fileID: 1022549107}
   - {fileID: 1505549501}
+  - {fileID: 315887991}

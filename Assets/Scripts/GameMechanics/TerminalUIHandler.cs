@@ -2,28 +2,48 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-// Handles displaying questions, receiving player input, and managing robot interactions
+// Manages question display and player interaction on a terminal UI
 public class TerminalUIHandler : MonoBehaviour
 {
-    public TMP_Text questionText; 
-    public Button[] answerButtons; 
-    public GameObject terminalUI; 
-    private SoftDevQuestion currentQuestion;
-    private GameObject clickedRobot; 
+    [Header("UI Elements")]
+    public TMP_Text questionText;
+    public Button[] answerButtons;
+    public GameObject terminalUI;
 
-    public SoftDevQuestionManager questionManager; 
-    public GameObject explosionPrefab; 
-
+    [Header("Gameplay")]
     public Timer timer;
+    public GameObject explosionPrefab;
 
-    // Method to show terminal
+    private Question currentQuestion;
+    private GameObject clickedRobot;
+
+    private QuestionManager questionManager;  // Assume this is assigned or fetched elsewhere
+
+    private void Awake()
+    {
+        questionManager = QuestionManager.Instance;
+        
+        if (questionManager == null)
+        {
+        Debug.LogError("QuestionManager not found in the scene!");
+        }
+    }
+
+
+    // Called to open terminal UI for a given robot
     public void OpenTerminal(GameObject robot)
     {
-        Time.timeScale = 0;
+        Time.timeScale = 0f;  // pause the game
 
         clickedRobot = robot;
-
+        Debug.Log("questionManager is " + (questionManager == null ? "NULL" : "OK"));
         currentQuestion = questionManager.GetRandomQuestion();
+
+        if (currentQuestion == null)
+        {
+            Debug.LogError("No question retrieved!");
+            return;
+        }
 
         questionText.text = currentQuestion.question;
 
@@ -32,71 +52,63 @@ public class TerminalUIHandler : MonoBehaviour
             if (i < currentQuestion.answers.Count)
             {
                 answerButtons[i].gameObject.SetActive(true);
-                answerButtons[i].GetComponentInChildren<TMP_Text>().text = currentQuestion.answers[i];
+                TMP_Text btnText = answerButtons[i].GetComponentInChildren<TMP_Text>();
+                btnText.text = currentQuestion.answers[i];
 
-                int index = i; 
+                int index = i; // capture for closure
                 answerButtons[i].onClick.RemoveAllListeners();
                 answerButtons[i].onClick.AddListener(() => OnAnswerSelected(index));
             }
             else
             {
-                answerButtons[i].gameObject.SetActive(false); 
+                answerButtons[i].gameObject.SetActive(false);
             }
         }
 
         terminalUI.SetActive(true);
     }
 
-    // Method for when an answer button is clicked
+    
+
+    // Called when an answer is selected
     public void OnAnswerSelected(int index)
     {
-        Time.timeScale = 1;
-
+        Time.timeScale = 1f;  // resume game
         terminalUI.SetActive(false);
 
         if (index == currentQuestion.correctAnswerIndex)
         {
             ExplodeRobot(clickedRobot);
-            // Add 15 seconds to the timer
+
             if (timer != null)
             {
                 timer.AddTime(15f);
             }
         }
     }
-    
-    // Method to destroy (explode) the robot
+
+    // Handles robot explosion and cleanup
     private void ExplodeRobot(GameObject robot)
     {
-        // Instantiate the explosion animation at the robot's position
-        if (robot != null)
+        if (robot == null) return;
+
+        if (explosionPrefab != null)
         {
-            
-            if (explosionPrefab != null)
+            GameObject explosion = Instantiate(explosionPrefab, robot.transform.position, Quaternion.identity);
+
+            Animator animator = explosion.GetComponent<Animator>();
+            if (animator != null)
             {
-                // Instantiate the explosion prefab
-                GameObject explosion = Instantiate(explosionPrefab, robot.transform.position, Quaternion.identity);
-
-                // Trigger the explosion animation
-                Animator explosionAnimator = explosion.GetComponent<Animator>();
-                if (explosionAnimator != null)
-                {
-                    explosionAnimator.SetTrigger("OnEnemyDeath");
-                }
-               
-
-                // Play the explosion sound effect
-                AudioSource audioSource = explosion.GetComponent<AudioSource>();
-                if (audioSource != null)
-                {
-                    audioSource.Play();
-                }
-            
+                animator.SetTrigger("OnEnemyDeath");
             }
-            
-            // Destroy the robot GameObject after the explosion
-            Destroy(robot);
 
+            AudioSource audioSource = explosion.GetComponent<AudioSource>();
+            if (audioSource != null)
+            {
+                audioSource.Play();
+            }
         }
+
+        Destroy(robot);
     }
 }
