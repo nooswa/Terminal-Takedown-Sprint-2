@@ -8,10 +8,21 @@ public class Timer : MonoBehaviour
     public Image Fill; //reference to UI fill image
     public float Max; //max value of timer
 
+    public Slider TimeSlider;
+
     void Start()
     {
         // Initializing the timer 
         time = Max;
+
+        if (TimeSlider != null)
+        {
+            TimeSlider.minValue = 15f; //lowest possible time from setting
+            TimeSlider.maxValue = 80f; //highest
+            TimeSlider.value = Max;
+
+            TimeSlider.onValueChanged.AddListener(UpdateMaxTime);
+        }
     }
 
     void Update() //called once per frame
@@ -35,4 +46,21 @@ public class Timer : MonoBehaviour
             time = Max;
         }
     }
+
+    public void UpdateMaxTime(float newMax) //assigns max with the newmax value
+    {
+        Max = newMax;
+    }
+
+    public void Apply(float apply)
+    {
+        time += apply;
+
+        // Ensuring the timer doesn't exceed its maximum
+        if (time > Max)
+        {
+            time = Max;
+        }
+    }
+
 }
