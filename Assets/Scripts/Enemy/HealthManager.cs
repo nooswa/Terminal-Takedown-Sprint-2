@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using System.Collections;
 
 public class HealthManager : MonoBehaviour
 {
@@ -49,7 +50,7 @@ public class HealthManager : MonoBehaviour
 
     void Start()
     {
-        if(reviveIconUI == null)
+        if (reviveIconUI == null)
         {
             reviveIconUI = GameObject.Find("ReviveIcon"); //searches for reviveicon
         }
@@ -61,6 +62,7 @@ public class HealthManager : MonoBehaviour
 
         _damageFlash = GetComponent<DamageFlash>();
         UpdateReviveUI();
+        shieldAudio = GetComponent<AudioSource>();
     }
 
     void Update()
@@ -93,7 +95,7 @@ public class HealthManager : MonoBehaviour
 
     public void TakeDamage(float damage)
     {
-        if (isDead) return;
+        if (isDead || isInvulnerable) return;
 
         healthAmount -= damage;
         healthAmount = Mathf.Clamp(healthAmount, 0, 100f);
@@ -183,5 +185,33 @@ public class HealthManager : MonoBehaviour
             reviveIconUI.SetActive(hasRevive);
         }
     }
+
+    // invulnerability flag and shield reference
+    private bool isInvulnerable = false;
+    public GameObject shield;
+
+    // gives invulnerability and shows shield for duration seconds
+    public void GrantInvulnerability(float duration)
+    {
+
+        if (shieldPopClip != null && shieldAudio != null) //plays shield noise
+            shieldAudio.PlayOneShot(shieldPopClip);
+        if (shield != null)
+            shield.SetActive(true);
+
+        isInvulnerable = true;
+        StartCoroutine(InvulnerabilityCoroutine(duration));
+    }
+
+    private IEnumerator InvulnerabilityCoroutine(float duration)
+    {
+        yield return new WaitForSeconds(duration);
+        isInvulnerable = false;
+        if (shield != null)
+            shield.SetActive(false);
+    }
+    
+    public AudioClip shieldPopClip; 
+    private AudioSource shieldAudio;   // the AudioSource on the player object
 
 }
