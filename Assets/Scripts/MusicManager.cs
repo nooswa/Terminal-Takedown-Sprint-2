@@ -11,7 +11,6 @@ public class MusicManager : MonoBehaviour
     public AudioClip deathMusic; //death music clip
     public AudioClip bossMusic; //boss music clip
 
-    [Header("Boss Music Settings")]
     public float fadeSpeed = 1f; //speed of music transitions
 
     private bool isBossMusicActive = false;

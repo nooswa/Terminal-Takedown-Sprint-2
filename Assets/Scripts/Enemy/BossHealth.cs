@@ -12,16 +12,22 @@ public class BossHealth : MonoBehaviour
     private void Start()
     {
         currentHealth = maxHealth;
+
+        // Show the health bar when boss spawns and update it to full health
         if (healthBarUI != null)
         {
-            healthBarUI.SetActive(false);
+            healthBarUI.SetActive(true);
         }
+
+        // Initialize the health bar to show full health
+        UpdateHealthUI();
     }
 
     public void TakeDamage()
     {
         currentHealth--;
         UpdateHealthUI();
+
         if (currentHealth <= 0)
         {
             Die();
@@ -34,16 +40,18 @@ public class BossHealth : MonoBehaviour
         {
             healthBarFill.fillAmount = (float)currentHealth / maxHealth;
         }
-        if (healthBarUI != null)
-        {
-            healthBarUI.SetActive(true);
-        }
     }
 
     public void ResetHealth()
     {
         currentHealth = maxHealth;
         UpdateHealthUI();
+
+        // Make sure health bar is visible when resetting
+        if (healthBarUI != null)
+        {
+            healthBarUI.SetActive(true);
+        }
     }
 
     private void Die()

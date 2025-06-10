@@ -13,6 +13,14 @@ public class TerminalUIHandler : MonoBehaviour
     public SoftDevQuestionManager questionManager;
     public GameObject explosionPrefab;
     public Timer timer;
+    private PlayerBugShooter bugShooter;
+
+    [System.Obsolete]
+    void Start()
+    {
+        // Find the PlayerBugShooter component in the scene
+        bugShooter = FindObjectOfType<PlayerBugShooter>();
+    }
 
     // Method to show terminal
     public void OpenTerminal(GameObject robot)
@@ -47,39 +55,15 @@ public class TerminalUIHandler : MonoBehaviour
 
         if (index == currentQuestion.correctAnswerIndex)
         {
-            // Correct answer
-            if (clickedRobot.CompareTag("Boss"))
+            // Correct answer - shoot bug at the target
+            if (bugShooter != null && clickedRobot != null)
             {
-                BossHealth bossHealth = clickedRobot.GetComponent<BossHealth>();
-                if (bossHealth != null)
-                {
-                    bossHealth.TakeDamage();
-                    // Add reduced time for boss hits (optional)
-                    if (timer != null)
-                    {
-                        timer.AddTime(3f); // Give 3 seconds per correct answer instead of 15
-                    }
-                }
+                bugShooter.ShootBugAtEnemy(clickedRobot.transform, this); // Pass reference to this handler
             }
             else
             {
-                // Handle loot for regular enemies on correct answer
-                LootBag loot = clickedRobot.GetComponent<LootBag>();
-                if (loot != null)
-                {
-                    loot.InstantiateLoot(clickedRobot.transform.position);
-                }
-                else
-                {
-                    Debug.LogWarning("No Loot Dropped!");
-                }
-
-                ExplodeRobot(clickedRobot);
-                // Add 15 seconds to the timer for regular enemies
-                if (timer != null)
-                {
-                    timer.AddTime(15f);
-                }
+                // Fallback to direct destruction if bug shooter not available
+                HandleCorrectAnswer();
             }
         }
         else
@@ -100,10 +84,76 @@ public class TerminalUIHandler : MonoBehaviour
         }
     }
 
-    // Method to destroy (explode) the robot
+    // Fallback method for handling correct answers without bug
+    private void HandleCorrectAnswer()
+    {
+        if (clickedRobot.CompareTag("Boss"))
+        {
+            BossHealth bossHealth = clickedRobot.GetComponent<BossHealth>();
+            if (bossHealth != null)
+            {
+                bossHealth.TakeDamage();
+                // Add reduced time for boss hits (optional)
+                if (timer != null)
+                {
+                    timer.AddTime(3f); // Give 3 seconds per correct answer instead of 15
+                }
+            }
+        }
+        else
+        {
+            // Handle loot for regular enemies on correct answer
+            LootBag loot = clickedRobot.GetComponent<LootBag>();
+            if (loot != null)
+            {
+                loot.InstantiateLoot(clickedRobot.transform.position);
+            }
+
+            ExplodeRobot(clickedRobot);
+            // Add 15 seconds to the timer for regular enemies
+            if (timer != null)
+            {
+                timer.AddTime(15f);
+            }
+        }
+    }
+
+    // Method to destroy (explode) the robot - called by PlayerBug when it hits target
     public void ExplodeRobot(GameObject robot)
     {
-        if (robot == null) return;
+        if (robot == null)
+        {
+            return;
+        }
+
+        // Handle boss damage
+        if (robot.CompareTag("Boss"))
+        {
+            BossHealth bossHealth = robot.GetComponent<BossHealth>();
+            if (bossHealth != null)
+            {
+                bossHealth.TakeDamage();
+                // Add reduced time for boss hits
+                if (timer != null)
+                {
+                    timer.AddTime(3f);
+                }
+                // Don't destroy the boss, just damage it
+                return;
+            }
+        }
+
+        // Handle loot dropping before explosion for regular enemies
+        if (!robot.CompareTag("Boss"))
+        {
+            LootBag loot = robot.GetComponent<LootBag>();
+            if (loot != null)
+            {
+                loot.InstantiateLoot(robot.transform.position);
+            }
+        }
+
+        // Create explosion effect
         if (explosionPrefab != null)
         {
             GameObject explosion = Instantiate(explosionPrefab, robot.transform.position, Quaternion.identity);
@@ -118,7 +168,16 @@ public class TerminalUIHandler : MonoBehaviour
                 audioSource.Play();
             }
         }
+
+        // Add time bonus for regular enemies
+        if (!robot.CompareTag("Boss") && timer != null)
+        {
+            timer.AddTime(15f);
+        }
+
+        // Destroy the robot
         Destroy(robot);
+
         // Only register death for non-boss enemies
         if (!robot.CompareTag("Boss"))
         {

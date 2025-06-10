@@ -26,7 +26,7 @@ public class BossAxeThrower : MonoBehaviour
 
         GameObject axe = Instantiate(axePrefab, transform.position, Quaternion.identity); // instantiate the axe at the boss position
 
-        // Calculate rotation to face the direction (optional - for visual consistency)
+        // Calculate rotation to face the direction
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         axe.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
 
