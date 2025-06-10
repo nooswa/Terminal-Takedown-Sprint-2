@@ -17,7 +17,7 @@ public static class JsonHelper
     }
 
     [Serializable]
-    private class Wrapper<T>
+    public class Wrapper<T>
     {
         public T[] array;
     }

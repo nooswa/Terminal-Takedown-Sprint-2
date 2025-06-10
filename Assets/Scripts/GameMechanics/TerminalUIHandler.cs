@@ -17,26 +17,55 @@ public class TerminalUIHandler : MonoBehaviour
     private Question currentQuestion;
     private GameObject clickedRobot;
 
-    private QuestionManager questionManager;  // Assume this is assigned or fetched elsewhere
+    // Backing field for lazy getter
+    private QuestionManager _questionManager;
 
-    private void Awake()
+    // Lazy property to get QuestionManager instance or find in scene
+    private QuestionManager questionManager
     {
-        questionManager = QuestionManager.Instance;
-        
-        if (questionManager == null)
+        get
         {
-        Debug.LogError("QuestionManager not found in the scene!");
+            if (_questionManager == null)
+            {
+                _questionManager = QuestionManager.Instance;
+                if (_questionManager == null)
+                {
+                    _questionManager = FindAnyObjectByType<QuestionManager>();
+                }
+                if (_questionManager == null)
+                {
+                    Debug.LogError("QuestionManager NOT found in the scene or via singleton!");
+                }
+            }
+            return _questionManager;
         }
     }
 
+    private void Start()
+    {
+        // Trigger the getter to cache the reference early
+        var qm = questionManager;
+    }
 
     // Called to open terminal UI for a given robot
     public void OpenTerminal(GameObject robot)
     {
-        Time.timeScale = 0f;  // pause the game
+        Time.timeScale = 0f;
 
         clickedRobot = robot;
-        Debug.Log("questionManager is " + (questionManager == null ? "NULL" : "OK"));
+
+        if (questionManager == null)
+        {
+            Debug.LogError("questionManager is NULL");
+            return;
+        }
+
+        if (!QuestionManager.Instance.HasQuestions)
+    {
+        Debug.LogError("No questions available! Cannot open terminal.");
+        return;
+    }
+
         currentQuestion = questionManager.GetRandomQuestion();
 
         if (currentQuestion == null)
@@ -45,35 +74,57 @@ public class TerminalUIHandler : MonoBehaviour
             return;
         }
 
+        if (questionText == null)
+        {
+            Debug.LogError("questionText is NULL");
+            return;
+        }
+
         questionText.text = currentQuestion.question;
 
         for (int i = 0; i < answerButtons.Length; i++)
         {
-            if (i < currentQuestion.answers.Count)
+            if (i < currentQuestion.answers.Length)
             {
-                answerButtons[i].gameObject.SetActive(true);
+                if (answerButtons[i] == null)
+                {
+                    Debug.LogError($"answerButtons[{i}] is NULL");
+                    continue;
+                }
+
                 TMP_Text btnText = answerButtons[i].GetComponentInChildren<TMP_Text>();
+                if (btnText == null)
+                {
+                    Debug.LogError($"TMP_Text is missing in button {i}");
+                    continue;
+                }
+
+                answerButtons[i].gameObject.SetActive(true);
                 btnText.text = currentQuestion.answers[i];
 
-                int index = i; // capture for closure
+                int index = i;
                 answerButtons[i].onClick.RemoveAllListeners();
                 answerButtons[i].onClick.AddListener(() => OnAnswerSelected(index));
             }
-            else
+            else if (answerButtons[i] != null)
             {
                 answerButtons[i].gameObject.SetActive(false);
             }
         }
 
+        if (terminalUI == null)
+        {
+            Debug.LogError("terminalUI is NULL");
+            return;
+        }
+
         terminalUI.SetActive(true);
     }
 
-    
-
-    // Called when an answer is selected
     public void OnAnswerSelected(int index)
     {
-        Time.timeScale = 1f;  // resume game
+        Time.timeScale = 1f;
+
         terminalUI.SetActive(false);
 
         if (index == currentQuestion.correctAnswerIndex)

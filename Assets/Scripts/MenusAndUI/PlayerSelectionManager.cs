@@ -19,6 +19,7 @@ public class PlayerSelectionManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        
     }
 
 #if UNITY_EDITOR

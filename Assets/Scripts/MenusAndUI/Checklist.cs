@@ -1,12 +1,15 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
+using System.Threading.Tasks;
 
 public class Checklist : MonoBehaviour
 {
     public List<GameObject> topicRows;
+    public int gameSceneIndex = 5; 
 
-    public void OnStartGamePressed()
+    public async void OnStartGamePressed()
     {
         List<string> selectedTopics = new List<string>();
         foreach (var row in topicRows)
@@ -19,6 +22,17 @@ public class Checklist : MonoBehaviour
             }
         }
         PlayerSelectionManager.Instance.SetTopics(selectedTopics);
-        // SceneManager.LoadSceneAsync( ... );
+
+        // Load questions before starting the game!
+        await QuestionManager.Instance.InitializeWithAIQuestions(
+            PlayerSelectionManager.Instance.SelectedClass,
+            PlayerSelectionManager.Instance.SelectedTopics
+        );
+
+        // Only load the game scene if we are still in Play Mode
+        if (Application.isPlaying)
+        {
+            _ = SceneManager.LoadSceneAsync(gameSceneIndex);
+        }
     }
 }

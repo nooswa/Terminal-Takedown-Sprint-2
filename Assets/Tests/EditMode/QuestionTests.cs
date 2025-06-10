@@ -16,13 +16,13 @@ namespace Tests
             GameObject go = new GameObject("QuestionManagerGO");
             questionManager = go.AddComponent<QuestionManager>();
 
-            // OPTIONAL: populate the question list for testing
+            // Populate the question list for testing
             questionManager.questions = new System.Collections.Generic.List<Question>
             {
                 new Question
                 {
                     question = "Test question?",
-                    answers = new System.Collections.Generic.List<string> { "A", "B", "C" },
+                    answers = new string[] { "A", "B", "C" }, // use string[] instead of List<string>
                     correctAnswerIndex = 0
                 }
             };
@@ -34,8 +34,8 @@ namespace Tests
             foreach (var q in questionManager.questions)
             {
                 Assert.NotNull(q, "A question in the list is null!");
-                Assert.NotNull(q.answers, "Question has a null answers list!");
-                Assert.IsTrue(q.answers.Count > 0, "Question has no answers!");
+                Assert.NotNull(q.answers, "Question has a null answers array!");
+                Assert.IsTrue(q.answers.Length > 0, "Question has no answers!"); // use Length instead of Count
             }
         }
     }
