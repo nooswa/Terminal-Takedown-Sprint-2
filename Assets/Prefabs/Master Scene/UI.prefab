@@ -2051,12 +2051,12 @@ MonoBehaviour:
   m_MinValue: 15
   m_MaxValue: 80
   m_WholeNumbers: 1
-  m_Value: 30
+  m_Value: 80
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: Timer, Assembly-CSharp
+        m_TargetAssemblyTypeName: Timer, ASREF
         m_MethodName: UpdateMaxTime
         m_Mode: 0
         m_Arguments:
