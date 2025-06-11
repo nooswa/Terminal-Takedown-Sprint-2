@@ -17,7 +17,7 @@ public class HealthManager : MonoBehaviour
     public AudioSource heartbeatSound;
 
 
-    private bool hasShownCriticalWarning = false;
+    
     private Coroutine flashingCoroutine = null;
 
     void Start()
