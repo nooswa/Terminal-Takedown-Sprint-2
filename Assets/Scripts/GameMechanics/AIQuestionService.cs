@@ -5,7 +5,6 @@ using UnityEngine.Networking;
 using System.Text;
 using System.Linq;
 
-// This class requests AI-generated questions and parses them correctly for Unity
 public class AIQuestionService : MonoBehaviour
 {
     public static AIQuestionService Instance { get; private set; }
@@ -42,11 +41,13 @@ public class AIQuestionService : MonoBehaviour
 
     public async Task<List<Question>> GenerateQuestionsAsync(string disciplineClass, List<string> topics)
     {
+        float startTime = Time.realtimeSinceStartup;
+
         string prompt = ComposePrompt(disciplineClass, topics);
 
         var requestData = new GenerateRequest
         {
-            model = "phi3:mini",
+            model = "llama3:8b",
             prompt = prompt,
             stream = false
         };
@@ -63,8 +64,14 @@ public class AIQuestionService : MonoBehaviour
             req.downloadHandler = new DownloadHandlerBuffer();
             req.SetRequestHeader("Content-Type", "application/json");
 
+            // Modern Unity: use SendWebRequest().completed + TaskCompletionSource for proper async
             var operation = req.SendWebRequest();
-            while (!operation.isDone) await Task.Yield();
+            var tcs = new TaskCompletionSource<bool>();
+            operation.completed += _ => tcs.SetResult(true);
+            await tcs.Task;
+
+            float afterRequest = Time.realtimeSinceStartup;
+            Debug.Log($"AIQuestionService: API call duration: {afterRequest - startTime:F2} seconds");
 
             if (req.result != UnityWebRequest.Result.Success)
             {
@@ -75,12 +82,13 @@ public class AIQuestionService : MonoBehaviour
             string rawResponse = req.downloadHandler.text;
             Debug.Log("AI API raw response: " + rawResponse);
 
+            float afterDeserializationStart = Time.realtimeSinceStartup;
+
             var responseWrapper = JsonUtility.FromJson<OllamaResponse>(rawResponse);
 
-            string jsonArray = ExtractJsonArray(responseWrapper.response);
+            string jsonArray = ExtractCleanJsonArray(responseWrapper.response);
             Debug.Log("Extracted JSON array: " + jsonArray);
 
-            // Correct usage: just pass the raw array, JsonHelper wraps it internally
             var arr = JsonHelper.FromJson<Question>(jsonArray);
             if (arr == null)
             {
@@ -89,10 +97,15 @@ public class AIQuestionService : MonoBehaviour
             }
             List<Question> questions = arr.ToList();
 
+            float afterDeserialization = Time.realtimeSinceStartup;
+            Debug.Log($"AIQuestionService: Deserialization duration: {afterDeserialization - afterDeserializationStart:F2} seconds");
+
             for (int i = 0; i < questions.Count; i++)
             {
                 Debug.Log($"Question {i + 1}: {questions[i].question} | Answers: {string.Join(", ", questions[i].answers)} | Correct: {questions[i].correctAnswerIndex}");
             }
+
+            Debug.Log($"AIQuestionService: Total duration: {afterDeserialization - startTime:F2} seconds");
 
             return questions;
         }
@@ -101,18 +114,32 @@ public class AIQuestionService : MonoBehaviour
     private string ComposePrompt(string disciplineClass, List<string> topics)
     {
         string topicsStr = string.Join(", ", topics);
-        return $"Generate 1 multiple-choice technical interview questions for {disciplineClass}, covering these topics: {topicsStr}. Each question should have 4 answer options (A, B, C, D) that are no longer than 20 characters each and indicate the correct option (index 0-3). Output ONLY a valid JSON array of objects with fields: question (string), answers (array of string), correctAnswerIndex (int). Do NOT include any explanation, markdown, or extra text—just the raw JSON array.";
-    }
+        return $"Generate exactly 10 concise multiple-choice technical interview questions for the subject \"{disciplineClass}\". Each question must focus on a single topic, randomly selected from the list: [{topicsStr}]. Each question must have: - A `question` field (string). - An `answers` field (array of 4 strings, each answer no longer than 20 characters). - A `correctAnswerIndex` field (integer 0–3). Output must be only a raw JSON array of 10 objects, each with the fields: question, answers, correctAnswerIndex. Do not include any explanations, markdown, extra text, or formatting—only the raw JSON array. Example: [{{\"question\":\"What is a binary search?\",\"answers\":[\"A search tree\",\"A sorted array algorithm\",\"A linear scan\",\"A hash lookup\"],\"correctAnswerIndex\":1}}]";    }
 
     // Helper method to extract JSON array from code block or markdown
-    private static string ExtractJsonArray(string responseText)
+    private static string ExtractCleanJsonArray(string responseText)
     {
-        // Try to find the first [ and last ] in the response
         int arrayStart = responseText.IndexOf('[');
         int arrayEnd = responseText.LastIndexOf(']');
-        if (arrayStart != -1 && arrayEnd != -1 && arrayEnd > arrayStart)
-            return responseText.Substring(arrayStart, arrayEnd - arrayStart + 1);
-        // If not found, return an empty array
-        return "[]";
+        if (arrayStart == -1 || arrayEnd == -1 || arrayEnd <= arrayStart)
+            return "[]";
+
+        string arrayText = responseText.Substring(arrayStart, arrayEnd - arrayStart + 1);
+
+        // Remove non-object elements
+        var elements = new List<string>();
+        int idx = 0;
+        while (idx < arrayText.Length)
+        {
+            int objStart = arrayText.IndexOf('{', idx);
+            if (objStart == -1) break;
+            int objEnd = arrayText.IndexOf('}', objStart);
+            if (objEnd == -1) break;
+            elements.Add(arrayText.Substring(objStart, objEnd - objStart + 1));
+            idx = objEnd + 1;
+        }
+        if (elements.Count == 0)
+            return "[]";
+        return "[" + string.Join(",", elements) + "]";
     }
 }

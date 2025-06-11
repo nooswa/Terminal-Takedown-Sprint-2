@@ -1,6 +1,8 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 // Manages question display and player interaction on a terminal UI
 public class TerminalUIHandler : MonoBehaviour
@@ -9,6 +11,7 @@ public class TerminalUIHandler : MonoBehaviour
     public TMP_Text questionText;
     public Button[] answerButtons;
     public GameObject terminalUI;
+    public GameObject loadingOverlay; // Optional: drag a "Loading..." overlay UI here in Inspector
 
     [Header("Gameplay")]
     public Timer timer;
@@ -16,22 +19,15 @@ public class TerminalUIHandler : MonoBehaviour
 
     private Question currentQuestion;
     private GameObject clickedRobot;
-
-    // Backing field for lazy getter
     private QuestionManager _questionManager;
 
-    // Lazy property to get QuestionManager instance or find in scene
     private QuestionManager questionManager
     {
         get
         {
             if (_questionManager == null)
             {
-                _questionManager = QuestionManager.Instance;
-                if (_questionManager == null)
-                {
-                    _questionManager = FindAnyObjectByType<QuestionManager>();
-                }
+                _questionManager = QuestionManager.Instance ?? FindAnyObjectByType<QuestionManager>();
                 if (_questionManager == null)
                 {
                     Debug.LogError("QuestionManager NOT found in the scene or via singleton!");
@@ -41,42 +37,45 @@ public class TerminalUIHandler : MonoBehaviour
         }
     }
 
-    private void Start()
+    private async void Start()
     {
-        // Trigger the getter to cache the reference early
+        // Always show loading overlay at scene start
+        loadingOverlay?.SetActive(true);
+
         var qm = questionManager;
+        if (qm == null)
+        {
+            Debug.LogError("QuestionManager not found. Cannot proceed.");
+            return;
+        }
+
+        // Wait until questions are loaded
+        while (!qm.HasQuestions)
+        {
+            Debug.Log("Waiting for questions to load...");
+            await Task.Delay(100); // Poll every 100ms
+        }
+
+        loadingOverlay?.SetActive(false);
+        Debug.Log("Questions are loaded, game is ready!");
     }
 
     // Called to open terminal UI for a given robot
     public void OpenTerminal(GameObject robot)
     {
         Time.timeScale = 0f;
-
         clickedRobot = robot;
 
-        if (questionManager == null)
+        if (questionManager == null || !questionManager.HasQuestions)
         {
-            Debug.LogError("questionManager is NULL");
+            Debug.LogError("Cannot open terminal. QuestionManager is null or has no questions.");
             return;
         }
 
-        if (!QuestionManager.Instance.HasQuestions)
-    {
-        Debug.LogError("No questions available! Cannot open terminal.");
-        return;
-    }
-
         currentQuestion = questionManager.GetRandomQuestion();
-
         if (currentQuestion == null)
         {
             Debug.LogError("No question retrieved!");
-            return;
-        }
-
-        if (questionText == null)
-        {
-            Debug.LogError("questionText is NULL");
             return;
         }
 
@@ -86,25 +85,18 @@ public class TerminalUIHandler : MonoBehaviour
         {
             if (i < currentQuestion.answers.Length)
             {
-                if (answerButtons[i] == null)
-                {
-                    Debug.LogError($"answerButtons[{i}] is NULL");
-                    continue;
-                }
+                var btn = answerButtons[i];
+                if (btn == null) continue;
 
-                TMP_Text btnText = answerButtons[i].GetComponentInChildren<TMP_Text>();
-                if (btnText == null)
-                {
-                    Debug.LogError($"TMP_Text is missing in button {i}");
-                    continue;
-                }
+                TMP_Text btnText = btn.GetComponentInChildren<TMP_Text>();
+                if (btnText == null) continue;
 
-                answerButtons[i].gameObject.SetActive(true);
+                btn.gameObject.SetActive(true);
                 btnText.text = currentQuestion.answers[i];
 
-                int index = i;
-                answerButtons[i].onClick.RemoveAllListeners();
-                answerButtons[i].onClick.AddListener(() => OnAnswerSelected(index));
+                int index = i; // Local copy for closure
+                btn.onClick.RemoveAllListeners();
+                btn.onClick.AddListener(() => OnAnswerSelected(index));
             }
             else if (answerButtons[i] != null)
             {
@@ -112,52 +104,31 @@ public class TerminalUIHandler : MonoBehaviour
             }
         }
 
-        if (terminalUI == null)
-        {
-            Debug.LogError("terminalUI is NULL");
-            return;
-        }
-
-        terminalUI.SetActive(true);
+        terminalUI?.SetActive(true);
     }
 
     public void OnAnswerSelected(int index)
     {
         Time.timeScale = 1f;
-
-        terminalUI.SetActive(false);
+        terminalUI?.SetActive(false);
 
         if (index == currentQuestion.correctAnswerIndex)
         {
             ExplodeRobot(clickedRobot);
-
-            if (timer != null)
-            {
-                timer.AddTime(15f);
-            }
+            timer?.AddTime(15f);
         }
     }
 
-    // Handles robot explosion and cleanup
     private void ExplodeRobot(GameObject robot)
     {
         if (robot == null) return;
 
         if (explosionPrefab != null)
         {
-            GameObject explosion = Instantiate(explosionPrefab, robot.transform.position, Quaternion.identity);
+            var explosion = Instantiate(explosionPrefab, robot.transform.position, Quaternion.identity);
 
-            Animator animator = explosion.GetComponent<Animator>();
-            if (animator != null)
-            {
-                animator.SetTrigger("OnEnemyDeath");
-            }
-
-            AudioSource audioSource = explosion.GetComponent<AudioSource>();
-            if (audioSource != null)
-            {
-                audioSource.Play();
-            }
+            explosion.GetComponent<Animator>()?.SetTrigger("OnEnemyDeath");
+            explosion.GetComponent<AudioSource>()?.Play();
         }
 
         Destroy(robot);

@@ -1112,6 +1112,8 @@ MonoBehaviour:
   - {fileID: 377899116}
   - {fileID: 1948421741}
   - {fileID: 1116824341}
+  loadingOverlay: {fileID: 0}
+  gameSceneIndex: 5
 --- !u!4 &315887991
 Transform:
   m_ObjectHideFlags: 0
