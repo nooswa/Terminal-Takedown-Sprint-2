@@ -1,7 +1,6 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using System.Collections;
 
 public class HealthManager : MonoBehaviour
 {
@@ -12,14 +11,6 @@ public class HealthManager : MonoBehaviour
     private bool isDead = false;
     private DamageFlash _damageFlash;
 
-    public GameObject redFlashOverlay;
-    public GameObject criticalHealthText;
-    public AudioSource heartbeatSound;
-
-
-    
-    private Coroutine flashingCoroutine = null;
-
     void Start()
     {
         if (playAgain != null)
@@ -28,12 +19,6 @@ public class HealthManager : MonoBehaviour
         }
 
         _damageFlash = GetComponent<DamageFlash>();
-
-        if (redFlashOverlay != null)
-            redFlashOverlay.SetActive(false);
-
-        if (criticalHealthText != null)
-            criticalHealthText.SetActive(false);
     }
 
     void Update()
@@ -44,40 +29,6 @@ public class HealthManager : MonoBehaviour
             isDead = true;
             HandleDeath();
         }
-
-        if (healthAmount <= 30f && !isDead)
-        {
-            if (flashingCoroutine == null)
-            {
-                flashingCoroutine = StartCoroutine(FlashCriticalWarning());
-            }
-
-            if (heartbeatSound != null && !heartbeatSound.isPlaying)
-            {
-                heartbeatSound.Play();
-            }
-
-            MusicManager.SetVolume(0.3f); // Reduce background subtly
-        }
-        else
-        {
-            if (flashingCoroutine != null)
-            {
-                StopCoroutine(flashingCoroutine);
-                flashingCoroutine = null;
-            }
-
-            if (heartbeatSound != null && heartbeatSound.isPlaying)
-            {
-                heartbeatSound.Stop();
-            }
-
-            if (redFlashOverlay != null) redFlashOverlay.SetActive(false);
-            if (criticalHealthText != null) criticalHealthText.SetActive(false);
-
-            MusicManager.SetVolume(1f); // Restore full volume
-        }
-
 
         // Manual testing inputs
         if (Input.GetKeyDown(KeyCode.Return))
@@ -164,7 +115,6 @@ public class HealthManager : MonoBehaviour
             MusicManager.Instance.PlayDeathMusic();
         }
     }
-
     public void LoadMainMenu()
     {
         Time.timeScale = 1f;
@@ -177,31 +127,5 @@ public class HealthManager : MonoBehaviour
         SceneManager.LoadScene(0); // loads menu scene index
     }
 
-    private IEnumerator FlashCriticalWarning()
-    {
-        while (healthAmount <= 30f && !isDead)
-        {
-            if (redFlashOverlay != null)
-                redFlashOverlay.SetActive(true);
 
-            if (criticalHealthText != null)
-                criticalHealthText.SetActive(true);
-
-            yield return new WaitForSeconds(0.2f);
-
-            if (redFlashOverlay != null)
-                redFlashOverlay.SetActive(false);
-
-            if (criticalHealthText != null)
-                criticalHealthText.SetActive(false);
-
-            yield return new WaitForSeconds(0.2f);
-        }
-
-        // Ensure they're hidden when done
-        if (redFlashOverlay != null)
-            redFlashOverlay.SetActive(false);
-        if (criticalHealthText != null)
-            criticalHealthText.SetActive(false);
-    }
 }
