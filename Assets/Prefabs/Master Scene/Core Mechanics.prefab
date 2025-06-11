@@ -47,15 +47,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4159957802505088608, guid: 003ec7d73343ca84692d7f433b015163, type: 3}
       propertyPath: Max
-      value: 20
+      value: 80
       objectReference: {fileID: 0}
     - target: {fileID: 4159957802505088608, guid: 003ec7d73343ca84692d7f433b015163, type: 3}
       propertyPath: time
-      value: 15
-      objectReference: {fileID: 0}
-    - target: {fileID: 4311296300993738733, guid: 003ec7d73343ca84692d7f433b015163, type: 3}
-      propertyPath: m_Text
-      value: 
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 5202446564096910515, guid: 003ec7d73343ca84692d7f433b015163, type: 3}
       propertyPath: m_AdditionalShaderChannelsFlag

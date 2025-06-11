@@ -25,8 +25,7 @@ public class TerminalUIHandler : MonoBehaviour
     // Method to show terminal
     public void OpenTerminal(GameObject robot)
     {
-        Time.timeScale = 0; // Freeze the game
-
+        Time.timeScale = 0;
         clickedRobot = robot;
         currentQuestion = questionManager.GetRandomQuestion();
         questionText.text = currentQuestion.question;
@@ -111,10 +110,10 @@ public class TerminalUIHandler : MonoBehaviour
             }
 
             ExplodeRobot(clickedRobot);
-            // Add 3 secs to the timer
+            // Add 15 seconds to the timer for regular enemies
             if (timer != null)
             {
-                timer.AddTime(3f);
+                timer.AddTime(15f);
             }
         }
     }
