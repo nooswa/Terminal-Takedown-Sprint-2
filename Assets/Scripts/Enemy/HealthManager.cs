@@ -12,22 +12,37 @@ public class HealthManager : MonoBehaviour
     private bool isDead = false;
     private DamageFlash _damageFlash;
 
+    // Revive System
+    private bool hasRevive = false;
+    public GameObject reviveIconUI;
+
+    // Shield System
+    private bool isInvulnerable = false;
+    public GameObject shield;
+    public AudioClip shieldPopClip;
+    private AudioSource shieldAudio;
+
+    // Critical Health Warning System
     public GameObject redFlashOverlay;
     public GameObject criticalHealthText;
     public AudioSource heartbeatSound;
-
-
-    
     private Coroutine flashingCoroutine = null;
 
     void Start()
     {
+        if (reviveIconUI == null)
+        {
+            reviveIconUI = GameObject.Find("ReviveIcon");
+        }
+
         if (playAgain != null)
         {
-            playAgain.SetActive(false); // hide Play Again UI at start
+            playAgain.SetActive(false);
         }
 
         _damageFlash = GetComponent<DamageFlash>();
+        shieldAudio = GetComponent<AudioSource>();
+        UpdateReviveUI();
 
         if (redFlashOverlay != null)
             redFlashOverlay.SetActive(false);
@@ -41,8 +56,15 @@ public class HealthManager : MonoBehaviour
         // Death check
         if (healthAmount <= 0 && !isDead)
         {
-            isDead = true;
-            HandleDeath();
+            if (hasRevive)
+            {
+                UseRevive();
+            }
+            else
+            {
+                isDead = true;
+                HandleDeath();
+            }
         }
 
         if (healthAmount <= 30f && !isDead)
@@ -57,7 +79,7 @@ public class HealthManager : MonoBehaviour
                 heartbeatSound.Play();
             }
 
-            MusicManager.SetVolume(0.3f); // Reduce background subtly
+            MusicManager.SetVolume(0.3f);
         }
         else
         {
@@ -75,34 +97,23 @@ public class HealthManager : MonoBehaviour
             if (redFlashOverlay != null) redFlashOverlay.SetActive(false);
             if (criticalHealthText != null) criticalHealthText.SetActive(false);
 
-            MusicManager.SetVolume(1f); // Restore full volume
+            MusicManager.SetVolume(1f);
         }
-
 
         // Manual testing inputs
-        if (Input.GetKeyDown(KeyCode.Return))
-        {
-            TakeDamage(20f); // simulate damage
-        }
-
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            Heal(10f); // simulate healing
-        }
+        if (Input.GetKeyDown(KeyCode.Return)) TakeDamage(20f);
+        if (Input.GetKeyDown(KeyCode.Space)) Heal(10f);
     }
 
     public void TakeDamage(float damage)
     {
-        if (isDead) return;
+        if (isDead || isInvulnerable) return;
 
         healthAmount -= damage;
         healthAmount = Mathf.Clamp(healthAmount, 0, 100f);
         healthBar.fillAmount = healthAmount / 100f;
 
-        if (_damageFlash != null)
-        {
-            _damageFlash.CallDamageFlash(); // flash screen on damage
-        }
+        if (_damageFlash != null) _damageFlash.CallDamageFlash();
     }
 
     public void Heal(float healingAmount)
@@ -117,18 +128,16 @@ public class HealthManager : MonoBehaviour
     private void HandleDeath()
     {
         if (MusicManager.Instance != null)
-        {
             MusicManager.Instance.PlayDeathMusic();
-        }
 
         if (playAgain != null)
         {
             playAgain.SetActive(true);
-            Time.timeScale = 0f; // pause the game
+            Time.timeScale = 0f;
         }
         else
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex); // fallback: reload scene
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
     }
 
@@ -137,17 +146,12 @@ public class HealthManager : MonoBehaviour
         Time.timeScale = 1f;
 
         if (MusicManager.Instance != null)
-        {
             MusicManager.Instance.PlayBackgroundMusic(true, MusicManager.Instance.backgroundMusic);
-        }
 
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
-    public bool IsDead()
-    {
-        return isDead;
-    }
+    public bool IsDead() => isDead;
 
     public void MarkAsDead()
     {
@@ -160,9 +164,7 @@ public class HealthManager : MonoBehaviour
         }
 
         if (MusicManager.Instance != null)
-        {
             MusicManager.Instance.PlayDeathMusic();
-        }
     }
 
     public void LoadMainMenu()
@@ -170,11 +172,59 @@ public class HealthManager : MonoBehaviour
         Time.timeScale = 1f;
 
         if (MusicManager.Instance != null)
-        {
             MusicManager.Instance.StopMusic();
-        }
 
-        SceneManager.LoadScene(0); // loads menu scene index
+        SceneManager.LoadScene(0);
+    }
+
+    private void UpdateReviveUI()
+    {
+        if (reviveIconUI != null)
+            reviveIconUI.SetActive(hasRevive);
+    }
+
+    public bool TryAddRevive()
+    {
+        if (hasRevive) return false;
+
+        hasRevive = true;
+        UpdateReviveUI();
+        Debug.Log("Obtained revive");
+        return true;
+    }
+
+    public bool HasRevive() => hasRevive;
+
+    public void UseRevive()
+    {
+        if (!hasRevive) return;
+
+        hasRevive = false;
+        isDead = false;
+        healthAmount = 100f;
+        healthBar.fillAmount = 1f;
+        UpdateReviveUI();
+        Debug.Log("Player revived with full health!");
+    }
+
+    public void GrantInvulnerability(float duration)
+    {
+        if (shieldPopClip != null && shieldAudio != null)
+            shieldAudio.PlayOneShot(shieldPopClip);
+
+        if (shield != null)
+            shield.SetActive(true);
+
+        isInvulnerable = true;
+        StartCoroutine(InvulnerabilityCoroutine(duration));
+    }
+
+    private IEnumerator InvulnerabilityCoroutine(float duration)
+    {
+        yield return new WaitForSeconds(duration);
+        isInvulnerable = false;
+        if (shield != null)
+            shield.SetActive(false);
     }
 
     private IEnumerator FlashCriticalWarning()
@@ -198,9 +248,9 @@ public class HealthManager : MonoBehaviour
             yield return new WaitForSeconds(0.2f);
         }
 
-        // Ensure they're hidden when done
         if (redFlashOverlay != null)
             redFlashOverlay.SetActive(false);
+
         if (criticalHealthText != null)
             criticalHealthText.SetActive(false);
     }
