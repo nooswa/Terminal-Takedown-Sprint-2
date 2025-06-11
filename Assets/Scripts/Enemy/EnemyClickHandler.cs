@@ -12,5 +12,8 @@ public class EnemyClickHandler : MonoBehaviour
         {
             terminalUIHandler.OpenTerminal(this.gameObject);
         }
+
+ 
+
     }
 }
