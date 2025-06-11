@@ -3,10 +3,15 @@ using UnityEngine.UI;
 
 public class Timer : MonoBehaviour
 {
-    public float time; //current time remaining
-    public Text TimerText; //reference to UI text component
-    public Image Fill; //reference to UI fill image
-    public float Max; //max value of timer
+    public float time; // Current time remaining
+    public Text TimerText; // Reference to UI text component
+    public Image Fill; // Reference to UI fill image
+    public float Max; // Max value of timer
+
+    private HealthManager healthManager; // Reference to HealthManager
+    private bool gameEnded = false; // Prevent multiple triggers
+
+    private float lastRealTime;
 
     public Slider TimeSlider;
 
@@ -23,24 +28,42 @@ public class Timer : MonoBehaviour
 
             TimeSlider.onValueChanged.AddListener(UpdateMaxTime);
         }
+
+        healthManager = FindAnyObjectByType<HealthManager>();
+        lastRealTime = Time.realtimeSinceStartup;
     }
 
-    void Update() //called once per frame
+    void Update()
     {
-        time -= Time.deltaTime; //decrease timer by time passed since last frame
-        TimerText.text = "" + Mathf.CeilToInt(time); // Using CeilToInt to round up to 120 secs
-        Fill.fillAmount = time / Max; //update fill image
+        if (gameEnded || time <= 0f) return;
 
-        if (time < 0) //clamp time to prevent going to 0
-            time = 0;
+        // Calculating elapsed real time, unaffected by timeScale
+        float currentRealTime = Time.realtimeSinceStartup;
+        float elapsed = currentRealTime - lastRealTime;
+        lastRealTime = currentRealTime;
+
+        time -= elapsed; // Using real time
+
+        TimerText.text = "" + Mathf.CeilToInt(time);
+        Fill.fillAmount = time / Max;
+
+        if (time <= 0f)
+        {
+            time = 0f;
+            gameEnded = true;
+
+            if (healthManager != null && !healthManager.IsDead())
+            {
+                healthManager.MarkAsDead(); // Ends the game
+            }
+        }
     }
 
-    // Method to add time to the timer
+   // Increase Time
     public void AddTime(float additionalTime)
     {
         time += additionalTime;
 
-        // Ensuring the timer doesn't exceed its maximum
         if (time > Max)
         {
             time = Max;
