@@ -12,57 +12,43 @@ public class HealthManager : MonoBehaviour
     private bool isDead = false;
     private DamageFlash _damageFlash;
 
-    private bool hasRevive = false; //revive flag (tracks revive have)
+    // Revive System
+    private bool hasRevive = false;
     public GameObject reviveIconUI;
 
-    public bool TryAddRevive() //attempt to pick up revive method
-    {
-        if (hasRevive)
-        {
-            return false; //already have revive
-        }
-        else
-        {
-            hasRevive = true;
-            UpdateReviveUI();
-            Debug.Log("Obtained revive");
-            return true;
-        }
-    }
+    // Shield System
+    private bool isInvulnerable = false;
+    public GameObject shield;
+    public AudioClip shieldPopClip;
+    private AudioSource shieldAudio;
 
-    public bool HasRevive() //checks for revive own
-    {
-        return hasRevive;
-    }
-
-    public void UseRevive() //revive usage on death
-    {
-        if (!hasRevive) return;
-
-        //stuff that happens upon revive trigger!
-        hasRevive = false;
-        isDead = false;
-        healthAmount = 100f;
-        healthBar.fillAmount = 1f;
-        UpdateReviveUI();
-        Debug.Log("Player revived with full health!");
-    }
+    // Critical Health Warning System
+    public GameObject redFlashOverlay;
+    public GameObject criticalHealthText;
+    public AudioSource heartbeatSound;
+    private Coroutine flashingCoroutine = null;
 
     void Start()
     {
         if (reviveIconUI == null)
         {
-            reviveIconUI = GameObject.Find("ReviveIcon"); //searches for reviveicon
+            reviveIconUI = GameObject.Find("ReviveIcon");
         }
 
         if (playAgain != null)
         {
-            playAgain.SetActive(false); // hide Play Again UI at start
+            playAgain.SetActive(false);
         }
 
         _damageFlash = GetComponent<DamageFlash>();
-        UpdateReviveUI();
         shieldAudio = GetComponent<AudioSource>();
+        UpdateReviveUI();
+
+        if (redFlashOverlay != null)
+            redFlashOverlay.SetActive(false);
+
+        if (criticalHealthText != null)
+            criticalHealthText.SetActive(false);
     }
 
     void Update()
@@ -81,16 +67,42 @@ public class HealthManager : MonoBehaviour
             }
         }
 
-        // Manual testing inputs
-        if (Input.GetKeyDown(KeyCode.Return))
+        if (healthAmount <= 30f && !isDead)
         {
-            TakeDamage(20f); // simulate damage
+            if (flashingCoroutine == null)
+            {
+                flashingCoroutine = StartCoroutine(FlashCriticalWarning());
+            }
+
+            if (heartbeatSound != null && !heartbeatSound.isPlaying)
+            {
+                heartbeatSound.Play();
+            }
+
+            MusicManager.SetVolume(0.3f);
+        }
+        else
+        {
+            if (flashingCoroutine != null)
+            {
+                StopCoroutine(flashingCoroutine);
+                flashingCoroutine = null;
+            }
+
+            if (heartbeatSound != null && heartbeatSound.isPlaying)
+            {
+                heartbeatSound.Stop();
+            }
+
+            if (redFlashOverlay != null) redFlashOverlay.SetActive(false);
+            if (criticalHealthText != null) criticalHealthText.SetActive(false);
+
+            MusicManager.SetVolume(1f);
         }
 
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            Heal(10f); // simulate healing
-        }
+        // Manual testing inputs
+        if (Input.GetKeyDown(KeyCode.Return)) TakeDamage(20f);
+        if (Input.GetKeyDown(KeyCode.Space)) Heal(10f);
     }
 
     public void TakeDamage(float damage)
@@ -101,10 +113,7 @@ public class HealthManager : MonoBehaviour
         healthAmount = Mathf.Clamp(healthAmount, 0, 100f);
         healthBar.fillAmount = healthAmount / 100f;
 
-        if (_damageFlash != null)
-        {
-            _damageFlash.CallDamageFlash(); // flash screen on damage
-        }
+        if (_damageFlash != null) _damageFlash.CallDamageFlash();
     }
 
     public void Heal(float healingAmount)
@@ -119,18 +128,16 @@ public class HealthManager : MonoBehaviour
     private void HandleDeath()
     {
         if (MusicManager.Instance != null)
-        {
             MusicManager.Instance.PlayDeathMusic();
-        }
 
         if (playAgain != null)
         {
             playAgain.SetActive(true);
-            Time.timeScale = 0f; // pause the game
+            Time.timeScale = 0f;
         }
         else
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex); // fallback: reload scene
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
     }
 
@@ -139,17 +146,12 @@ public class HealthManager : MonoBehaviour
         Time.timeScale = 1f;
 
         if (MusicManager.Instance != null)
-        {
             MusicManager.Instance.PlayBackgroundMusic(true, MusicManager.Instance.backgroundMusic);
-        }
 
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
-    public bool IsDead()
-    {
-        return isDead;
-    }
+    public bool IsDead() => isDead;
 
     public void MarkAsDead()
     {
@@ -162,40 +164,54 @@ public class HealthManager : MonoBehaviour
         }
 
         if (MusicManager.Instance != null)
-        {
             MusicManager.Instance.PlayDeathMusic();
-        }
     }
+
     public void LoadMainMenu()
     {
         Time.timeScale = 1f;
 
         if (MusicManager.Instance != null)
-        {
             MusicManager.Instance.StopMusic();
-        }
 
-        SceneManager.LoadScene(0); // loads menu scene index
+        SceneManager.LoadScene(0);
     }
 
     private void UpdateReviveUI()
     {
         if (reviveIconUI != null)
-        {
             reviveIconUI.SetActive(hasRevive);
-        }
     }
 
-    // invulnerability flag and shield reference
-    private bool isInvulnerable = false;
-    public GameObject shield;
+    public bool TryAddRevive()
+    {
+        if (hasRevive) return false;
 
-    // gives invulnerability and shows shield for duration seconds
+        hasRevive = true;
+        UpdateReviveUI();
+        Debug.Log("Obtained revive");
+        return true;
+    }
+
+    public bool HasRevive() => hasRevive;
+
+    public void UseRevive()
+    {
+        if (!hasRevive) return;
+
+        hasRevive = false;
+        isDead = false;
+        healthAmount = 100f;
+        healthBar.fillAmount = 1f;
+        UpdateReviveUI();
+        Debug.Log("Player revived with full health!");
+    }
+
     public void GrantInvulnerability(float duration)
     {
-
-        if (shieldPopClip != null && shieldAudio != null) //plays shield noise
+        if (shieldPopClip != null && shieldAudio != null)
             shieldAudio.PlayOneShot(shieldPopClip);
+
         if (shield != null)
             shield.SetActive(true);
 
@@ -210,8 +226,32 @@ public class HealthManager : MonoBehaviour
         if (shield != null)
             shield.SetActive(false);
     }
-    
-    public AudioClip shieldPopClip; 
-    private AudioSource shieldAudio;   // the AudioSource on the player object
 
+    private IEnumerator FlashCriticalWarning()
+    {
+        while (healthAmount <= 30f && !isDead)
+        {
+            if (redFlashOverlay != null)
+                redFlashOverlay.SetActive(true);
+
+            if (criticalHealthText != null)
+                criticalHealthText.SetActive(true);
+
+            yield return new WaitForSeconds(0.2f);
+
+            if (redFlashOverlay != null)
+                redFlashOverlay.SetActive(false);
+
+            if (criticalHealthText != null)
+                criticalHealthText.SetActive(false);
+
+            yield return new WaitForSeconds(0.2f);
+        }
+
+        if (redFlashOverlay != null)
+            redFlashOverlay.SetActive(false);
+
+        if (criticalHealthText != null)
+            criticalHealthText.SetActive(false);
+    }
 }

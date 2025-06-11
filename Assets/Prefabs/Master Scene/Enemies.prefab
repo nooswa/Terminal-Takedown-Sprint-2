@@ -455,6 +455,7 @@ MonoBehaviour:
   player: {fileID: 0}
   spawnRadius: 6
   spawnInterval: 2
+  masterMixerGroup: {fileID: 24300002, guid: f77e55db1cd20e14b8335964ed93da4c, type: 2}
   spawnSound: {fileID: 8300000, guid: b6c2736d3b5c349dd961ffeebd9d477e, type: 3}
   maxVolume: 1
   minVolume: 0.1
