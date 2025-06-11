@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using System;
 
+
+// Manages loading and retrieval of AI-generated questions.
+
 public class QuestionManager : MonoBehaviour
 {
     public static QuestionManager Instance { get; private set; }
-
     public List<Question> questions = new List<Question>();
     public bool IsLoading { get; private set; }
     public bool HasQuestions => questions != null && questions.Count > 0;
@@ -15,6 +17,7 @@ public class QuestionManager : MonoBehaviour
 
     private void Awake()
     {
+        // Singleton pattern for global access
         if (Instance == null)
         {
             Instance = this;
@@ -26,15 +29,18 @@ public class QuestionManager : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// Called by UI to start loading questions based on user selection.
-    /// </summary>
-    public void BeginLoadingQuestions(string disciplineClass, List<string> topics)
+
+    // Begins loading questions asynchronously given class and topics.
+
+    public void BeginLoadingQuestions(string disciplineClass, List<string> topics, int desiredCount = 10)
     {
-        _ = InitializeWithAIQuestions(disciplineClass, topics);
+        _ = InitializeWithAIQuestions(disciplineClass, topics, desiredCount);
     }
 
-    private async Task InitializeWithAIQuestions(string disciplineClass, List<string> topics)
+
+    // Prompts AI for one question at a time, building the list dynamically.
+
+    private async Task InitializeWithAIQuestions(string disciplineClass, List<string> topics, int desiredCount)
     {
         if (IsLoading)
         {
@@ -58,18 +64,22 @@ public class QuestionManager : MonoBehaviour
         }
 
         IsLoading = true;
+        questions = new List<Question>();
 
         try
         {
-            var generated = await AIQuestionService.Instance.GenerateQuestionsAsync(disciplineClass, topics);
-            if (generated == null || generated.Count == 0)
+            for (int i = 0; i < desiredCount; i++)
             {
-                Debug.LogError("QuestionManager: AI returned no questions");
-                OnQuestionsLoaded?.Invoke(false);
-                return;
+                var question = await AIQuestionService.Instance.GenerateSingleQuestionAsync(disciplineClass, topics);
+                if (question == null)
+                {
+                    Debug.LogError($"QuestionManager: AI returned no question at iteration {i + 1}");
+                    OnQuestionsLoaded?.Invoke(false);
+                    return;
+                }
+                questions.Add(question);
+                Debug.Log($"QuestionManager: Added question {i + 1}/{desiredCount}");
             }
-
-            questions = new List<Question>(generated);
             Debug.Log($"QuestionManager: Loaded {questions.Count} questions");
             OnQuestionsLoaded?.Invoke(true);
         }
@@ -84,6 +94,7 @@ public class QuestionManager : MonoBehaviour
         }
     }
 
+    // Returns a random question from the list.
     public Question GetRandomQuestion()
     {
         if (!HasQuestions)
@@ -95,6 +106,7 @@ public class QuestionManager : MonoBehaviour
         return questions[randomIndex];
     }
 
+    // Clears all loaded questions.
     public void ClearQuestions()
     {
         questions.Clear();

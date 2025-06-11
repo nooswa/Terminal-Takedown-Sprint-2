@@ -3,6 +3,7 @@ using UnityEngine.UI;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 
+// Handles topic selection checklist and game start.
 public class Checklist : MonoBehaviour
 {
     [Header("Checklist UI")]
@@ -22,6 +23,7 @@ public class Checklist : MonoBehaviour
             QuestionManager.Instance.OnQuestionsLoaded -= OnQuestionsLoaded;
     }
 
+    // Called when the Start Game button is pressed.
     public void OnStartGamePressed()
     {
         // Gather selected topics from UI
@@ -42,6 +44,7 @@ public class Checklist : MonoBehaviour
         );
     }
 
+    // Called once questions are loaded (or fail to load).
     private async void OnQuestionsLoaded(bool success)
     {
         if (!success)

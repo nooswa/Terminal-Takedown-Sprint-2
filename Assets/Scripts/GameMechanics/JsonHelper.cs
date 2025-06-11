@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 
+// Helper for serializing and deserializing JSON arrays with Unity's JsonUtility.
 public static class JsonHelper
 {
     public static T[] FromJson<T>(string json)

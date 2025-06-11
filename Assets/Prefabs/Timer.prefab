@@ -215,10 +215,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 361302453de63ed4a932bf75ab15272b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  time: 120
+  time: 20
   TimerText: {fileID: 4311296300993738733}
   Fill: {fileID: 8452070251935510201}
-  Max: 120
+  Max: 80
 --- !u!1 &2896809297765801948
 GameObject:
   m_ObjectHideFlags: 0
@@ -278,7 +278,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_VertexColorAlwaysGammaSpace: 0
-  m_AdditionalShaderChannelsFlag: 0
+  m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0

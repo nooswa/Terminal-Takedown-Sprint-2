@@ -5,6 +5,9 @@ using UnityEngine.Networking;
 using System.Text;
 using System.Linq;
 
+
+// Service to generate AI-driven multiple-choice questions via local LLM API.
+
 public class AIQuestionService : MonoBehaviour
 {
     public static AIQuestionService Instance { get; private set; }
@@ -12,6 +15,7 @@ public class AIQuestionService : MonoBehaviour
 
     private void Awake()
     {
+        // Singleton pattern for easy global access
         if (Instance == null)
         {
             Instance = this;
@@ -39,7 +43,10 @@ public class AIQuestionService : MonoBehaviour
         public bool stream;
     }
 
-    public async Task<List<Question>> GenerateQuestionsAsync(string disciplineClass, List<string> topics)
+
+    // Generate a single multiple-choice question from AI.
+
+    public async Task<Question> GenerateSingleQuestionAsync(string disciplineClass, List<string> topics)
     {
         float startTime = Time.realtimeSinceStartup;
 
@@ -64,7 +71,7 @@ public class AIQuestionService : MonoBehaviour
             req.downloadHandler = new DownloadHandlerBuffer();
             req.SetRequestHeader("Content-Type", "application/json");
 
-            // Modern Unity: use SendWebRequest().completed + TaskCompletionSource for proper async
+            // Await the response
             var operation = req.SendWebRequest();
             var tcs = new TaskCompletionSource<bool>();
             operation.completed += _ => tcs.SetResult(true);
@@ -85,38 +92,39 @@ public class AIQuestionService : MonoBehaviour
             float afterDeserializationStart = Time.realtimeSinceStartup;
 
             var responseWrapper = JsonUtility.FromJson<OllamaResponse>(rawResponse);
-
             string jsonArray = ExtractCleanJsonArray(responseWrapper.response);
             Debug.Log("Extracted JSON array: " + jsonArray);
 
             var arr = JsonHelper.FromJson<Question>(jsonArray);
-            if (arr == null)
+            if (arr == null || arr.Length == 0)
             {
-                Debug.LogError("Deserialization returned null! JSON: " + jsonArray);
-                return new List<Question>();
+                Debug.LogError("Deserialization returned null or empty! JSON: " + jsonArray);
+                return null;
             }
-            List<Question> questions = arr.ToList();
+            Question question = arr[0];
 
             float afterDeserialization = Time.realtimeSinceStartup;
             Debug.Log($"AIQuestionService: Deserialization duration: {afterDeserialization - afterDeserializationStart:F2} seconds");
 
-            for (int i = 0; i < questions.Count; i++)
-            {
-                Debug.Log($"Question {i + 1}: {questions[i].question} | Answers: {string.Join(", ", questions[i].answers)} | Correct: {questions[i].correctAnswerIndex}");
-            }
-
+            Debug.Log($"Question: {question.question} | Answers: {string.Join(", ", question.answers)} | Correct: {question.correctAnswerIndex}");
             Debug.Log($"AIQuestionService: Total duration: {afterDeserialization - startTime:F2} seconds");
 
-            return questions;
+            return question;
         }
     }
+
+
+    // Create the AI prompt for a single question.
 
     private string ComposePrompt(string disciplineClass, List<string> topics)
     {
         string topicsStr = string.Join(", ", topics);
-        return $"Generate exactly 10 concise multiple-choice technical interview questions for the subject \"{disciplineClass}\". Each question must focus on a single topic, randomly selected from the list: [{topicsStr}]. Each question must have: - A `question` field (string). - An `answers` field (array of 4 strings, each answer no longer than 20 characters). - A `correctAnswerIndex` field (integer 0–3). Output must be only a raw JSON array of 10 objects, each with the fields: question, answers, correctAnswerIndex. Do not include any explanations, markdown, extra text, or formatting—only the raw JSON array. Example: [{{\"question\":\"What is a binary search?\",\"answers\":[\"A search tree\",\"A sorted array algorithm\",\"A linear scan\",\"A hash lookup\"],\"correctAnswerIndex\":1}}]";    }
+        return $"Write 1 concise multiple-choice interview question about \"{disciplineClass}\" (topic: one random from [{topicsStr}]). Respond with a raw JSON array: [{{\"question\":\"...\",\"answers\":[\"...\",...],\"correctAnswerIndex\":N}}] (answers: 4, ≤20 chars each, N: 0–3). No explanations or extra text.";
+    }
 
-    // Helper method to extract JSON array from code block or markdown
+
+    // Extracts a JSON array from a raw string (LLM response).
+
     private static string ExtractCleanJsonArray(string responseText)
     {
         int arrayStart = responseText.IndexOf('[');
@@ -126,7 +134,7 @@ public class AIQuestionService : MonoBehaviour
 
         string arrayText = responseText.Substring(arrayStart, arrayEnd - arrayStart + 1);
 
-        // Remove non-object elements
+        // Extract all JSON objects from the array string
         var elements = new List<string>();
         int idx = 0;
         while (idx < arrayText.Length)

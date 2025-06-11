@@ -11,7 +11,6 @@ public class TerminalUIHandler : MonoBehaviour
     public TMP_Text questionText;
     public Button[] answerButtons;
     public GameObject terminalUI;
-    public GameObject loadingOverlay; // Optional: drag a "Loading..." overlay UI here in Inspector
 
     [Header("Gameplay")]
     public Timer timer;
@@ -39,9 +38,7 @@ public class TerminalUIHandler : MonoBehaviour
 
     private async void Start()
     {
-        // Always show loading overlay at scene start
-        loadingOverlay?.SetActive(true);
-
+        // No loading overlay logic
         var qm = questionManager;
         if (qm == null)
         {
@@ -52,11 +49,9 @@ public class TerminalUIHandler : MonoBehaviour
         // Wait until questions are loaded
         while (!qm.HasQuestions)
         {
-            Debug.Log("Waiting for questions to load...");
             await Task.Delay(100); // Poll every 100ms
         }
 
-        loadingOverlay?.SetActive(false);
         Debug.Log("Questions are loaded, game is ready!");
     }
 
