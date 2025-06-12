@@ -16,6 +16,9 @@ EditorBuildSettings:
     guid: dc1ae37e5ee00d64c8f02edad068e7d1
   - enabled: 1
     path: Assets/Scenes/CyberSecInGame.unity
+    guid: 2d65f087acd0cab4fb26d12e1e6ef074
+  - enabled: 0
+    path: Assets/Scenes/Cybers.unity
     guid: ede58a1b9ba44424ebbebaf4129659db
   - enabled: 1
     path: Assets/Scenes/SoftDevChecklist.unity

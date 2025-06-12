@@ -1,184 +1,185 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-// Handles displaying questions, receiving player input, and managing robot interactions
+using System.Collections.Generic;
+using System.Threading.Tasks;
+
+// Handles displaying questions, receiving player input, and managing robot interactions (including bosses)
 public class TerminalUIHandler : MonoBehaviour
 {
+    [Header("UI Elements")]
     public TMP_Text questionText;
     public Button[] answerButtons;
     public GameObject terminalUI;
-    private SoftDevQuestion currentQuestion;
-    private GameObject clickedRobot;
     public GameObject bossHealthBarUI;
-    public SoftDevQuestionManager questionManager;
-    public GameObject explosionPrefab;
-    public Timer timer;
-    private PlayerBugShooter bugShooter;
 
-    [System.Obsolete]
-    void Start()
+    [Header("Gameplay")]
+    public Timer timer;
+    public GameObject explosionPrefab;
+
+    private Question currentQuestion;
+    private GameObject clickedRobot;
+    private PlayerBugShooter bugShooter;
+    private QuestionManager _questionManager;
+
+    private QuestionManager questionManager
     {
-        // Find the PlayerBugShooter component in the scene
-        bugShooter = FindObjectOfType<PlayerBugShooter>();
+        get
+        {
+            if (_questionManager == null)
+            {
+                _questionManager = QuestionManager.Instance ?? FindAnyObjectByType<QuestionManager>();
+                if (_questionManager == null)
+                {
+                    Debug.LogError("QuestionManager NOT found in the scene or via singleton!");
+                }
+            }
+            return _questionManager;
+        }
     }
 
-    // Method to show terminal
+    private async void Start()
+    {
+        bugShooter = FindObjectOfType<PlayerBugShooter>();
+
+        var qm = questionManager;
+        if (qm == null)
+        {
+            Debug.LogError("QuestionManager not found. Cannot proceed.");
+            return;
+        }
+
+        while (!qm.HasQuestions)
+        {
+            await Task.Delay(100);
+        }
+
+        Debug.Log("Questions are loaded, game is ready!");
+    }
+
     public void OpenTerminal(GameObject robot)
     {
-        Time.timeScale = 0;
+        Time.timeScale = 0f;
         clickedRobot = robot;
+
+        if (questionManager == null || !questionManager.HasQuestions)
+        {
+            Debug.LogError("Cannot open terminal. QuestionManager is null or has no questions.");
+            return;
+        }
+
         currentQuestion = questionManager.GetRandomQuestion();
+        if (currentQuestion == null)
+        {
+            Debug.LogError("No question retrieved!");
+            return;
+        }
+
         questionText.text = currentQuestion.question;
+
         for (int i = 0; i < answerButtons.Length; i++)
         {
-            if (i < currentQuestion.answers.Count)
+            if (i < currentQuestion.answers.Length)
             {
-                answerButtons[i].gameObject.SetActive(true);
-                answerButtons[i].GetComponentInChildren<TMP_Text>().text = currentQuestion.answers[i];
+                var btn = answerButtons[i];
+                if (btn == null) continue;
+
+                TMP_Text btnText = btn.GetComponentInChildren<TMP_Text>();
+                if (btnText == null) continue;
+
+                btn.gameObject.SetActive(true);
+                btnText.text = currentQuestion.answers[i];
+
                 int index = i;
-                answerButtons[i].onClick.RemoveAllListeners();
-                answerButtons[i].onClick.AddListener(() => OnAnswerSelected(index));
+                btn.onClick.RemoveAllListeners();
+                btn.onClick.AddListener(() => OnAnswerSelected(index));
             }
-            else
+            else if (answerButtons[i] != null)
             {
                 answerButtons[i].gameObject.SetActive(false);
             }
         }
-        terminalUI.SetActive(true);
+
+        terminalUI?.SetActive(true);
     }
 
-    // Method for when an answer button is clicked
     public void OnAnswerSelected(int index)
     {
-        Time.timeScale = 1;
-        terminalUI.SetActive(false);
+        Time.timeScale = 1f;
+        terminalUI?.SetActive(false);
 
         if (index == currentQuestion.correctAnswerIndex)
         {
-            // Correct answer - shoot bug at the target
             if (bugShooter != null && clickedRobot != null)
             {
-                bugShooter.ShootBugAtEnemy(clickedRobot.transform, this); // Pass reference to this handler
+                bugShooter.ShootBugAtEnemy(clickedRobot.transform, this); // Use bug shooter if available
             }
             else
             {
-                // Fallback to direct destruction if bug shooter not available
-                HandleCorrectAnswer();
+                HandleCorrectAnswer(); // Fallback if bug shooter not found
             }
         }
         else
         {
-            // Incorrect answer
-            if (clickedRobot.CompareTag("Boss"))
+            if (clickedRobot != null && clickedRobot.CompareTag("Boss"))
             {
-                // Make the boss throw an axe when answer is incorrect
                 BossAxeThrower axeThrower = clickedRobot.GetComponent<BossAxeThrower>();
-                if (axeThrower != null)
-                {
-                    // Force the boss to throw an axe immediately
-                    axeThrower.ThrowAxeAtPlayer();
-                }
+                axeThrower?.ThrowAxeAtPlayer();
             }
-            // For incorrect answers, don't destroy regular robots
-            // Only bosses have consequences for wrong answers
         }
     }
 
-    // Fallback method for handling correct answers without bug
     private void HandleCorrectAnswer()
     {
+        if (clickedRobot == null) return;
+
         if (clickedRobot.CompareTag("Boss"))
         {
             BossHealth bossHealth = clickedRobot.GetComponent<BossHealth>();
             if (bossHealth != null)
             {
                 bossHealth.TakeDamage();
-                // Add reduced time for boss hits (optional)
-                if (timer != null)
-                {
-                    timer.AddTime(3f); // Give 3 seconds per correct answer instead of 15
-                }
+                timer?.AddTime(3f);
             }
         }
         else
         {
-            // Handle loot for regular enemies on correct answer
             LootBag loot = clickedRobot.GetComponent<LootBag>();
-            if (loot != null)
-            {
-                loot.InstantiateLoot(clickedRobot.transform.position);
-            }
+            loot?.InstantiateLoot(clickedRobot.transform.position);
 
             ExplodeRobot(clickedRobot);
-            // Add 15 seconds to the timer for regular enemies
-            if (timer != null)
-            {
-                timer.AddTime(15f);
-            }
+            timer?.AddTime(15f);
         }
     }
 
-    // Method to destroy (explode) the robot - called by PlayerBug when it hits target
     public void ExplodeRobot(GameObject robot)
     {
-        if (robot == null)
-        {
-            return;
-        }
+        if (robot == null) return;
 
-        // Handle boss damage
         if (robot.CompareTag("Boss"))
         {
             BossHealth bossHealth = robot.GetComponent<BossHealth>();
             if (bossHealth != null)
             {
                 bossHealth.TakeDamage();
-                // Add reduced time for boss hits
-                if (timer != null)
-                {
-                    timer.AddTime(3f);
-                }
-                // Don't destroy the boss, just damage it
-                return;
+                timer?.AddTime(3f);
+                return; // Do not destroy the boss
             }
         }
 
-        // Handle loot dropping before explosion for regular enemies
-        if (!robot.CompareTag("Boss"))
-        {
-            LootBag loot = robot.GetComponent<LootBag>();
-            if (loot != null)
-            {
-                loot.InstantiateLoot(robot.transform.position);
-            }
-        }
+        LootBag loot = robot.GetComponent<LootBag>();
+        loot?.InstantiateLoot(robot.transform.position);
 
-        // Create explosion effect
         if (explosionPrefab != null)
         {
-            GameObject explosion = Instantiate(explosionPrefab, robot.transform.position, Quaternion.identity);
-            Animator explosionAnimator = explosion.GetComponent<Animator>();
-            if (explosionAnimator != null)
-            {
-                explosionAnimator.SetTrigger("OnEnemyDeath");
-            }
-            AudioSource audioSource = explosion.GetComponent<AudioSource>();
-            if (audioSource != null)
-            {
-                audioSource.Play();
-            }
+            var explosion = Instantiate(explosionPrefab, robot.transform.position, Quaternion.identity);
+            explosion.GetComponent<Animator>()?.SetTrigger("OnEnemyDeath");
+            explosion.GetComponent<AudioSource>()?.Play();
         }
 
-        // Add time bonus for regular enemies
-        if (!robot.CompareTag("Boss") && timer != null)
-        {
-            timer.AddTime(15f);
-        }
-
-        // Destroy the robot
+        timer?.AddTime(15f);
         Destroy(robot);
 
-        // Only register death for non-boss enemies
         if (!robot.CompareTag("Boss"))
         {
             EnemyTracker.Instance?.RegisterEnemyDeath();

@@ -4135,6 +4135,30 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8491541513324031177, guid: a047778a604cf8343a6213b212c18580, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8491541513324031177, guid: a047778a604cf8343a6213b212c18580, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8491541513324031177, guid: a047778a604cf8343a6213b212c18580, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8491541513324031177, guid: a047778a604cf8343a6213b212c18580, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: PlayBackButtonSound
+      objectReference: {fileID: 0}
+    - target: {fileID: 8491541513324031177, guid: a047778a604cf8343a6213b212c18580, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: UISounds, ASREF
+      objectReference: {fileID: 0}
+    - target: {fileID: 8491541513324031177, guid: a047778a604cf8343a6213b212c18580, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 8991823846407905995, guid: a047778a604cf8343a6213b212c18580, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
       value: 1
@@ -4166,7 +4190,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8714931979791714544, guid: a047778a604cf8343a6213b212c18580, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4951773074055075530}
   m_SourcePrefab: {fileID: 100100000, guid: a047778a604cf8343a6213b212c18580, type: 3}
 --- !u!224 &1698115058906889969 stripped
 RectTransform:
@@ -4184,6 +4211,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 448baddfb8d1ac54b99710f99bdfb6bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &8502080251920754005 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8714931979791714544, guid: a047778a604cf8343a6213b212c18580, type: 3}
+  m_PrefabInstance: {fileID: 940368895443004837}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &4951773074055075530
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8502080251920754005}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf322848eaf14224a9768e2eda73c19c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneIndexToLoad: 0
 --- !u!1001 &2557045749518470926
 PrefabInstance:
   m_ObjectHideFlags: 0
