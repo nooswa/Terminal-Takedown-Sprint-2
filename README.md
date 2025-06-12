@@ -31,13 +31,14 @@ No more late nights suffering through endless LeetCode grinds. Terminal Takedown
 
 - Unity version: `6000.0.43f1` (required for compatibility)
 - Aspect ratio: `16:9` (gameplay and UI optimized for this format)
-- Internet connection: Required for the core game mechanic of fetching practice questions.
+- Ollama: llama3:8b required for core game mechanic of fetching practice questions.
 
 ## How to Play (Development Mode)
 
 Since the game is not yet deployed, it must be run through the Unity Editor:
 
 1. Clone the repo
-2. Open in Unity Hub using version `6000.0.43f1`
-3. Open the MainMenu scene
-4. Click **Play**
+2. Ensure you have llama3:8b running for the AI question generation functionality
+3. Open in Unity Hub using version `6000.0.43f1`
+4. Open the MainMenu scene
+5. Click **Play**
