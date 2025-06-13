@@ -4,7 +4,7 @@ public class BossInitializer : MonoBehaviour
 {
     private void Start()
     {
-        gameObject.SetActive(false);
+        gameObject.SetActive(false); //boss disabled on start
         EnemyTracker.Instance.RegisterBossInstance(this.gameObject);
 
         // Trigger boss music
@@ -15,7 +15,7 @@ public class BossInitializer : MonoBehaviour
         }
     }
 
-    private void OnEnable()
+    private void OnEnable() //when boss on plays boss music
     {
         // Called when boss is activated in the scene
         MusicManager.Instance?.PlayBossMusic();

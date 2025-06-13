@@ -21,11 +21,11 @@ public class QuestionManager : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject);
+            DontDestroyOnLoad(gameObject); //only this instance is running
         }
         else
         {
-            Destroy(gameObject);
+            Destroy(gameObject); //extras get destroyed.
         }
     }
 

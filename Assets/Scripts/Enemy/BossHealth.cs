@@ -3,11 +3,11 @@ using UnityEngine.UI;
 
 public class BossHealth : MonoBehaviour
 {
-    public int maxHealth = 5;
-    private int currentHealth;
-    public GameObject healthBarUI;
-    public Image healthBarFill;
-    public GameObject explosionPrefab;
+    public int maxHealth = 5; //maxhealth for boss
+    private int currentHealth; //current health count
+    public GameObject healthBarUI; //ui
+    public Image healthBarFill; //ui fill
+    public GameObject explosionPrefab; //explosion effect
 
     private void Start()
     {
@@ -23,18 +23,18 @@ public class BossHealth : MonoBehaviour
         UpdateHealthUI();
     }
 
-    public void TakeDamage()
+    public void TakeDamage() //calls when boss takes damage
     {
-        currentHealth--;
+        currentHealth--; //loses health and updates
         UpdateHealthUI();
 
-        if (currentHealth <= 0)
+        if (currentHealth <= 0) //checks for boss death criteria
         {
             Die();
         }
     }
 
-    private void UpdateHealthUI()
+    private void UpdateHealthUI() //updates the health ui
     {
         if (healthBarFill != null)
         {
@@ -42,7 +42,7 @@ public class BossHealth : MonoBehaviour
         }
     }
 
-    public void ResetHealth()
+    public void ResetHealth() //resets boss health for new fights
     {
         currentHealth = maxHealth;
         UpdateHealthUI();
@@ -54,7 +54,7 @@ public class BossHealth : MonoBehaviour
         }
     }
 
-    private void Die()
+    private void Die() //boss death method (what happens when boss dies)
     {
         // Stop boss music and return to previous music
         if (MusicManager.Instance != null)
@@ -90,7 +90,7 @@ public class BossHealth : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    private void OnDisable()
+    private void OnDisable() //reassures boss music stops playing upon boss disable.
     {
         // Ensure boss music stops when boss is disabled
         if (MusicManager.Instance != null)

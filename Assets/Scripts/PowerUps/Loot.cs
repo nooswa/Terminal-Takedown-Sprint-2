@@ -5,6 +5,7 @@ using UnityEngine;
 [CreateAssetMenu]
 public class Loot : ScriptableObject
 {
+    //sprites lootnames, drop%, type of loot dropped
     public Sprite lootSprite;
     public string lootName;
     public int dropChance;

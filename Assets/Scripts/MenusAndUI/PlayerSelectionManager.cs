@@ -10,14 +10,14 @@ public class PlayerSelectionManager : MonoBehaviour
 
     private void Awake()
     {
-        if (Instance == null)
+        if (Instance == null) //ensures only 1 instance is running
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject);
+            DontDestroyOnLoad(gameObject); //ensures this instance keeps running
         }
         else
         {
-            Destroy(gameObject);
+            Destroy(gameObject); //destroys an extras
         }
         
     }
@@ -30,17 +30,17 @@ public class PlayerSelectionManager : MonoBehaviour
     }
 #endif
 
-    public void SetClass(string className)
+    public void SetClass(string className) //assigns class name
     {
         SelectedClass = className;
     }
 
-    public void SetTopics(List<string> topics)
+    public void SetTopics(List<string> topics) //selected topics
     {
         SelectedTopics = new List<string>(topics);
     }
 
-    public void ClearSelections()
+    public void ClearSelections() //clears selected topics
     {
         SelectedClass = null;
         SelectedTopics.Clear();

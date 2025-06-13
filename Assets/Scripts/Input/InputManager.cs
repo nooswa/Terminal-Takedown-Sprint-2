@@ -13,8 +13,8 @@ public class InputManager : MonoBehaviour
 
     private void Awake()
     {
-        _playerInput = GetComponent<PlayerInput>();
-        _moveAction = _playerInput.actions["Move"];
+        _playerInput = GetComponent<PlayerInput>(); //player input access
+        _moveAction = _playerInput.actions["Move"]; //find move
     }
 
     private void Update()

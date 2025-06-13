@@ -20,13 +20,13 @@ public class HideLoadingPanelAndUnfreeze : MonoBehaviour
         while (elapsed < 20f)
         {
             yield return null;
-            elapsed += Time.unscaledDeltaTime;
+            elapsed += Time.unscaledDeltaTime; //time passed
         }
 
         // Hide loading panel and unfreeze game
         if (loadingPanel != null)
             loadingPanel.SetActive(false);
 
-        Time.timeScale = 1f;
+        Time.timeScale = 1f; //game unfreeze
     }
 }

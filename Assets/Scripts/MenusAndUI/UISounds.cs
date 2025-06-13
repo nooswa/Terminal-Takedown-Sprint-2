@@ -25,8 +25,8 @@ public class UISounds : MonoBehaviour
 
     void Awake()
     {
-        audioSource = gameObject.AddComponent<AudioSource>();
-        audioSource.playOnAwake = false;
+        audioSource = gameObject.AddComponent<AudioSource>(); //access to audiosource
+        audioSource.playOnAwake = false; //disables on awake.
     }
 
     // normal sound player

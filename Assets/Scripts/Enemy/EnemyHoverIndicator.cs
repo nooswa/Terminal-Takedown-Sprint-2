@@ -9,14 +9,14 @@ public class EnemyHoverIndicator : MonoBehaviour
 
     void Start()
     {
-        enemyRenderer = GetComponent<Renderer>();
+        enemyRenderer = GetComponent<Renderer>(); //access to renderer
         if (enemyRenderer != null)
         {
-            originalColor = enemyRenderer.material.color;
+            originalColor = enemyRenderer.material.color; //if not null saves original color
         }
     }
 
-    void OnMouseEnter()
+    void OnMouseEnter() //if mouse is on top of enemy uses hover color
     {
         if (enemyRenderer != null)
         {
@@ -24,7 +24,7 @@ public class EnemyHoverIndicator : MonoBehaviour
         }
     }
 
-    void OnMouseExit()
+    void OnMouseExit() //when mouse is not on top of enemy it stops hover color
     {
         if (enemyRenderer != null)
         {

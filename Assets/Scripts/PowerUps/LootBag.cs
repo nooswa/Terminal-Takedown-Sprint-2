@@ -12,7 +12,7 @@ public class LootHover : MonoBehaviour //Animation for loot
 
     void Start()
     {
-        rb = GetComponent<Rigidbody2D>();
+        rb = GetComponent<Rigidbody2D>(); //assigns rigid body so that it is interactable with player.
         startY = rb.position.y;
     }
 
@@ -30,7 +30,7 @@ public class LootBag : MonoBehaviour
     public GameObject droppedItemPrefab;
     public List<Loot> lootList = new List<Loot>();
 
-    Loot GetDroppedItem()
+    Loot GetDroppedItem() //for dropped item to spawn via random number generated.
     {
         int randomNumber = Random.Range(1, 101); // Random number range set to 1-100
         List<Loot> possibleItems = new List<Loot>();
@@ -50,7 +50,7 @@ public class LootBag : MonoBehaviour
         return null;
     }
 
-    public void InstantiateLoot(Vector3 spawnPosition)
+    public void InstantiateLoot(Vector3 spawnPosition) //for loot drops upon death.
     {
         Loot droppedItem = GetDroppedItem();
         if(droppedItem != null )

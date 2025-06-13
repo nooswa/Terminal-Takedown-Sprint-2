@@ -5,8 +5,8 @@ public class BackButtonHandler : MonoBehaviour
 {
         public int sceneIndexToLoad;
 
-    public void LoadPreviousScene()
+    public void LoadPreviousScene() //loads previous scene
     {
-        SceneManager.LoadScene(sceneIndexToLoad);
+        SceneManager.LoadScene(sceneIndexToLoad); 
     }
 }

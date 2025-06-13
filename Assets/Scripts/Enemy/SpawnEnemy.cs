@@ -21,7 +21,7 @@ public class SpawnEnemy : MonoBehaviour
         }
     }
 
-    void SpawnEnemies()
+    void SpawnEnemies() //method for spawning enemies
     {
         if (player == null || enemyPrefab == null) return;
         // Random position within spawnRadius around the player
@@ -32,7 +32,7 @@ public class SpawnEnemy : MonoBehaviour
         PlaySpawnSound(spawnPos);
     }
 
-    void PlaySpawnSound(Vector3 spawnPosition)
+    void PlaySpawnSound(Vector3 spawnPosition) //plays spawn sounds when they spawn.
     {
         if (spawnSound == null) return;
         float distance = Vector3.Distance(player.position, spawnPosition);

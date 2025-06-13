@@ -2,6 +2,6 @@ using UnityEngine;
 
 public enum LootType
 {
-    Health,
-    Revive
+    Health, //health loot type
+    Revive //revie loot type
 }

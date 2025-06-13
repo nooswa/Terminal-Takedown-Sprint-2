@@ -9,26 +9,26 @@ public class MenuMusicManager : MonoBehaviour
 
     void Awake()
     {
-        if (instance == null)
+        if (instance == null) //instance to ensure only 1 is running
         {
             instance = this;
-            DontDestroyOnLoad(gameObject);
+            DontDestroyOnLoad(gameObject); //ensures only this object is running
             audioSource = GetComponent<AudioSource>();
             audioSource.loop = true;
             audioSource.Play();
         }
         else
         {
-            Destroy(gameObject);
+            Destroy(gameObject); //destroys extra
         }
     }
 
-    void OnEnable()
+    void OnEnable() //enables scene load
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
-    void OnDisable()
+    void OnDisable() //disables sceneloads
     {
         SceneManager.sceneLoaded -= OnSceneLoaded;
     }
@@ -51,7 +51,7 @@ public class MenuMusicManager : MonoBehaviour
             audioSource.Play();
         }
 
-        if (System.Array.Exists(menuScenes, index => index == scene.buildIndex))
+        if (System.Array.Exists(menuScenes, index => index == scene.buildIndex)) //plays music based on scene
         {
             if (!audioSource.isPlaying)
             {

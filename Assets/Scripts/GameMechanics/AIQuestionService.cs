@@ -11,32 +11,32 @@ using System.Linq;
 public class AIQuestionService : MonoBehaviour
 {
     public static AIQuestionService Instance { get; private set; }
-    private readonly string apiUrl = "http://localhost:11434/api/generate";
+    private readonly string apiUrl = "http://localhost:11434/api/generate"; //ai api url
 
     private void Awake()
     {
-        // Singleton pattern for easy global access
+        // Singleton pattern for easy global access ensures only 1 instance is running
         if (Instance == null)
         {
             Instance = this;
             if (transform.parent != null)
                 transform.SetParent(null);
-            DontDestroyOnLoad(gameObject);
+            DontDestroyOnLoad(gameObject); //makes sure only this object is running
         }
         else
         {
-            Destroy(gameObject);
+            Destroy(gameObject); // deletes duplicates
         }
     }
 
     [System.Serializable]
     private class OllamaResponse
     {
-        public string response;
+        public string response; //ai reply
     }
 
     [System.Serializable]
-    private class GenerateRequest
+    private class GenerateRequest //generate request to ai api format
     {
         public string model;
         public string prompt;
@@ -50,7 +50,7 @@ public class AIQuestionService : MonoBehaviour
     {
         float startTime = Time.realtimeSinceStartup;
 
-        string prompt = ComposePrompt(disciplineClass, topics);
+        string prompt = ComposePrompt(disciplineClass, topics); //prompt
 
         var requestData = new GenerateRequest
         {

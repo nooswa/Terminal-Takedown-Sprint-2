@@ -75,7 +75,7 @@ public class Timer : MonoBehaviour
         Max = newMax;
     }
 
-    public void Apply(float apply)
+    public void Apply(float apply) //FOR UPDATING THE TIME (FOR APLYING CHANGES UPON EXITING THE SETTINGS!)
     {
         time += apply;
 

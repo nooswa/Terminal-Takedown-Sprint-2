@@ -8,38 +8,38 @@ public class MusicManager : MonoBehaviour
     public static MusicManager Instance;
     private AudioSource audioSource;
 
-    public AudioClip backgroundMusic;
+    public AudioClip backgroundMusic; //music for different scenarios
     public AudioClip deathMusic;
     public AudioClip bossMusic;
 
-    public float fadeSpeed = 1f;
+    public float fadeSpeed = 1f; //speed of fade between songs
 
     private bool isBossMusicActive = false;
     private float pausedTime = 0f;
 
     private void Awake()
     {
-        if (Instance == null)
+        if (Instance == null) //ensures only 1 instance is running
         {
             Instance = this;
             audioSource = GetComponent<AudioSource>();
             transform.SetParent(null);
-            DontDestroyOnLoad(gameObject);
+            DontDestroyOnLoad(gameObject); 
         }
         else
         {
-            Destroy(gameObject);
+            Destroy(gameObject); //destroys extra instances
         }
     }
 
     private void OnEnable()
     {
-        SceneManager.sceneLoaded += OnSceneLoaded;
+        SceneManager.sceneLoaded += OnSceneLoaded; //runs with scene loads
     }
 
     private void OnDisable()
     {
-        SceneManager.sceneLoaded -= OnSceneLoaded;
+        SceneManager.sceneLoaded -= OnSceneLoaded; //stops when disabled
     }
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
@@ -56,13 +56,13 @@ public class MusicManager : MonoBehaviour
 }
 
 
-    public static void SetVolume(float volume)
+    public static void SetVolume(float volume) //public for volume change
     {
         if (Instance != null)
             Instance.audioSource.volume = volume;
     }
 
-    public void PlayBackgroundMusic(bool resetSong, AudioClip audioClip = null)
+    public void PlayBackgroundMusic(bool resetSong, AudioClip audioClip = null) //plays bg music
     {
         if (audioClip != null)
         {
@@ -81,7 +81,7 @@ public class MusicManager : MonoBehaviour
         }
     }
 
-    public void PauseBackgroundMusic()
+    public void PauseBackgroundMusic() //pauses music and tracks pausedtime
     {
         if (audioSource.isPlaying)
         {
@@ -90,7 +90,7 @@ public class MusicManager : MonoBehaviour
         }
     }
 
-    public void PlayDeathMusic()
+    public void PlayDeathMusic() //death music player upon death
     {
         if (deathMusic != null)
         {
@@ -102,7 +102,7 @@ public class MusicManager : MonoBehaviour
         }
     }
 
-    public void StopMusic()
+    public void StopMusic() //stops music method
     {
         if (audioSource.isPlaying)
         {
@@ -111,7 +111,7 @@ public class MusicManager : MonoBehaviour
         }
     }
 
-    public void EnsureBackgroundMusicPlaying()
+    public void EnsureBackgroundMusicPlaying() //keeps music playing (avoids false//acidental stops)
     {
         if (!audioSource.isPlaying && !isBossMusicActive)
         {
@@ -119,7 +119,7 @@ public class MusicManager : MonoBehaviour
         }
     }
 
-    public void PlayBossMusic()
+    public void PlayBossMusic() //boss music
     {
         if (bossMusic != null && !isBossMusicActive)
         {
@@ -129,7 +129,7 @@ public class MusicManager : MonoBehaviour
         }
     }
 
-    public void StopBossMusic()
+    public void StopBossMusic() //stop boss music
     {
         if (isBossMusicActive)
         {
@@ -138,7 +138,7 @@ public class MusicManager : MonoBehaviour
         }
     }
 
-    private IEnumerator SwitchToBossMusic()
+    private IEnumerator SwitchToBossMusic() //bossmusic switcher
     {
         float originalVolume = audioSource.volume;
 
@@ -162,7 +162,7 @@ public class MusicManager : MonoBehaviour
         audioSource.volume = originalVolume;
     }
 
-    private IEnumerator SwitchBackToBackgroundMusic()
+    private IEnumerator SwitchBackToBackgroundMusic() //switches to bg music
     {
         float originalVolume = audioSource.volume;
 
@@ -186,7 +186,7 @@ public class MusicManager : MonoBehaviour
         audioSource.volume = originalVolume;
     }
 
-    public bool IsBossMusicActive()
+    public bool IsBossMusicActive() //bool to check if boss music is on.
     {
         return isBossMusicActive;
     }
